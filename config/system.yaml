@@ -1,0 +1,16 @@
+system:
+  name: TAIOS
+  version: "0.1.0"
+  random_seed: 42
+  decision_actions:
+    - ALLOW
+    - MONITOR
+    - LIMIT
+    - REQUEST_APPROVAL
+    - BLOCK
+    - ISOLATE
+
+logging:
+  directory: logs
+  event_file: events.jsonl
+  decision_file: decisions.jsonl

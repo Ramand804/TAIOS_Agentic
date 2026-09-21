@@ -1,0 +1,10 @@
+trust:
+  initial_default: 0.80
+  minimum: 0.0
+  maximum: 1.0
+  weights:
+    identity: 0.20
+    device: 0.25
+    behavioral: 0.25
+    historical: 0.15
+    contextual: 0.15

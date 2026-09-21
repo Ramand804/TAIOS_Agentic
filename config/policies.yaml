@@ -1,0 +1,15 @@
+policies:
+  - id: P01
+    name: Critical asset high-risk protection
+    description: High-risk commands targeting critical assets require restrictive action.
+    enabled: true
+
+  - id: P02
+    name: Unauthenticated control protection
+    description: Unauthenticated control commands must not be directly allowed.
+    enabled: true
+
+  - id: P03
+    name: Human approval for uncertainty
+    description: Critical actions with conflicting evidence may require human approval.
+    enabled: true

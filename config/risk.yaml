@@ -1,0 +1,12 @@
+risk:
+  weights:
+    threat: 0.40
+    distrust: 0.25
+    criticality: 0.20
+    anomaly: 0.15
+  thresholds:
+    allow: 0.20
+    monitor: 0.40
+    limit: 0.55
+    request_approval: 0.70
+    block: 0.85

@@ -1,0 +1,10 @@
+experiments:
+  default_events: 100
+  seeds: [42, 123, 456, 789, 2026]
+  scenarios:
+    S1: normal_operation
+    S2: compromised_device
+    S3: credential_compromise
+    S4: conflicting_evidence
+    S5: concept_drift
+    S6: coordinated_attack

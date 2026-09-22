@@ -1,0 +1,12 @@
+# UNCALIBRATED Day-2A experimental parameters; no scientific validation claimed.
+version: day2c-model-v1
+calibration_status: UNCALIBRATED
+# Known prior, bounds and weights are loaded from the existing canonical trust.yaml.
+base_config: trust.yaml
+unknown_prior: 0.50
+positive_rate: 0.01
+negative_rate: 0.10
+recovery_rate: 0.005
+recency: 0.25
+history_confidence: 0.50
+weight_tolerance: 0.000000001

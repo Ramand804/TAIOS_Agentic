@@ -6,6 +6,8 @@ from typing import List
 from environment.assets import ASSET_REGISTRY, get_asset
 from environment.identities import DEFAULT_IDENTITIES
 from environment.event import IndustrialEvent
+from environment.scenarios import get_scenario_manifest
+from environment.provenance import EventProvenance
 from environment.industrial_environment import IndustrialState, OperatingMode
 from environment.operational_limits import OperationalLimits
 
@@ -18,22 +20,30 @@ class EventGenerator:
         self.assets = ASSET_REGISTRY
         self.operational_limits = OperationalLimits()
 
-    def configuration_snapshot(self):
-        return {"assets": [a.to_dict() for a in self.assets.values()],
+    def configuration_snapshot(self, scenario_id=None, n=100):
+        config = {"assets": [a.to_dict() for a in self.assets.values()],
                 "identities": [asdict(identity) for identity in DEFAULT_IDENTITIES],
                 "initial_industrial_state": IndustrialState().to_dict(),
                 "operational_limits": self.operational_limits.to_dict()}
+        if scenario_id is not None:
+            config["scenario_manifest"] = get_scenario_manifest(scenario_id, max(0, n)).to_dict()
+        return config
 
     def create_run(self, scenario_id, n=100,
                    simulation_start_time=DEFAULT_SIMULATION_START, event_interval_seconds=1.0):
         return ExperimentRun(scenario_id, self.seed, max(0, n), simulation_start_time,
                              event_interval_seconds=event_interval_seconds,
-                             configuration=self.configuration_snapshot())
+                             configuration=self.configuration_snapshot(scenario_id, n))
 
     def _event(self, **kwargs):
         if self._run is not None:
             self._sequence += 1
             kwargs.update(self._run.event_metadata(self._sequence))
+            kwargs['provenance'] = EventProvenance(
+                self._run.experiment_id, self._manifest.scenario_id, self._manifest.scenario_version,
+                self._run.generator_version, self._sequence, self._manifest.phase_at(self._sequence),
+                self._manifest.transition_type, self._manifest.causal_tags_at(self._sequence),
+                self._manifest.total_events)
         return IndustrialEvent(**kwargs)
 
     def generate(self, scenario_id: str, n: int = 100, experiment=None) -> List[IndustrialEvent]:
@@ -42,8 +52,9 @@ class EventGenerator:
             raise ValueError("Experiment context does not match generation arguments")
         if run.generator_version != GENERATOR_VERSION:
             raise ValueError("Experiment generator_version does not match this generator")
-        if run.configuration != self.configuration_snapshot():
+        if run.configuration != self.configuration_snapshot(scenario_id, n):
             raise ValueError("Experiment configuration does not match the current environment")
+        self._manifest = get_scenario_manifest(scenario_id, max(0, n))
         self.rng.seed(run.seed)
         self._run, self._sequence = run, 0
         try:
@@ -89,7 +100,7 @@ class EventGenerator:
         source = get_asset("PLC-07")
         target = get_asset("MOTOR-02")
         out = []
-        compromise_at = max(1, n // 2)
+        compromise_at = (self._manifest.transition_sequence or n + 1) - 1
         for i in range(n):
             compromised = i >= compromise_at
             out.append(self._event(
@@ -106,7 +117,7 @@ class EventGenerator:
                     "compromise_phase": compromised,
                     "event_sequence": i + 1,
                     # One-based position at which the compromised phase begins.
-                    "compromise_event": compromise_at + 1,
+                    "compromise_event": self._manifest.transition_sequence,
                 },
                 ground_truth="MALICIOUS" if compromised else "BENIGN",
                 expected_safe_action="BLOCK" if compromised else "ALLOW",
@@ -118,7 +129,7 @@ class EventGenerator:
         target = get_asset("PLC-03")
         out = []
         for i in range(n):
-            malicious = i >= max(1, n // 2)
+            malicious = self._manifest.phase_at(i + 1) == "POST_COMPROMISE"
             out.append(self._event(
                 source_id=source.asset_id, source_type=source.asset_type,
                 target_id=target.asset_id, target_type=target.asset_type,
@@ -155,7 +166,7 @@ class EventGenerator:
         target = get_asset("MOTOR-02")
         out = []
         state = IndustrialState()
-        drift_at = max(1, n // 2)
+        drift_at = (self._manifest.transition_sequence or n + 1) - 1
         for i in range(n):
             after = i >= drift_at
             if i == drift_at:
@@ -188,7 +199,7 @@ class EventGenerator:
         attackers = [get_asset(asset_id) for asset_id in ("HMI-02", "PLC-04", "SERVICE-03")]
         target = get_asset("PLC-03")
         out = []
-        attack_at = max(1, n // 3)
+        attack_at = (self._manifest.transition_sequence or n + 1) - 1
         for i in range(n):
             if i < attack_at:
                 out.append(self._normal("S6"))

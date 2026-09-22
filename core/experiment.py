@@ -7,7 +7,7 @@ import math
 from typing import Any
 
 DEFAULT_SIMULATION_START = "2026-01-01T00:00:00+00:00"
-GENERATOR_VERSION = "day1c-step3-v1"
+GENERATOR_VERSION = "day1c-step4-v1"
 
 
 def canonical_json(value: Any) -> str:

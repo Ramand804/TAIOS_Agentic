@@ -3,6 +3,7 @@ from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 import uuid
+from environment.provenance import EventProvenance
 
 VALID_LABELS = {"BENIGN", "SUSPICIOUS", "MALICIOUS"}
 VALID_ACTIONS = {"ALLOW", "MONITOR", "LIMIT", "REQUEST_APPROVAL", "BLOCK", "ISOLATE"}
@@ -31,7 +32,11 @@ class IndustrialEvent:
     sequence_number: Optional[int] = None
     experiment_id: Optional[str] = None
 
+    provenance: Optional[EventProvenance] = None
+
     def __post_init__(self):
+        if isinstance(self.provenance, dict):
+            self.provenance = EventProvenance(**self.provenance)
         if not 0.0 <= self.asset_criticality <= 1.0:
             raise ValueError("asset_criticality must be in [0, 1]")
         if self.ground_truth not in VALID_LABELS:
@@ -40,4 +45,7 @@ class IndustrialEvent:
             raise ValueError(f"invalid expected_safe_action: {self.expected_safe_action}")
 
     def to_dict(self) -> Dict[str, Any]:
-        return asdict(self)
+        result = asdict(self)
+        if self.provenance is not None:
+            result["provenance"] = self.provenance.to_dict()
+        return result

@@ -1,1 +1,1 @@
-"""Day 5: deterministic policy governance."""\n
+"""Day 5: deterministic policy governance."""

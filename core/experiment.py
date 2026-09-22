@@ -32,7 +32,9 @@ class ExperimentRun:
     def __post_init__(self):
         if self.scenario_id not in {f"S{i}" for i in range(1, 7)}:
             raise ValueError(f"Unknown scenario: {self.scenario_id}")
-        if self.total_events < 0:
+        if type(self.seed) is not int:
+            raise ValueError("seed must be an integer")
+        if type(self.total_events) is not int or self.total_events < 0:
             raise ValueError("total_events must be nonnegative")
         start = datetime.fromisoformat(self.simulation_start_time)
         if start.tzinfo is None or start.utcoffset() is None:
@@ -49,6 +51,14 @@ class ExperimentRun:
             "generator_version", "event_interval_seconds", "configuration")}
         object.__setattr__(self, "experiment_id",
                            f"EXP-{self.scenario_id}-{self.seed}-{self.total_events}-{fingerprint(identity)[:16]}")
+
+    def validate_identity(self):
+        identity = self.to_dict()
+        identity.pop("experiment_id")
+        expected = f"EXP-{self.scenario_id}-{self.seed}-{self.total_events}-{fingerprint(identity)[:16]}"
+        if expected != self.experiment_id:
+            raise ValueError("Experiment configuration changed after identity creation")
+        return True
 
     def event_metadata(self, sequence_number: int) -> dict:
         if not 1 <= sequence_number <= self.total_events:

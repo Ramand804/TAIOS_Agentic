@@ -1,1 +1,2 @@
-class BaseAgent:\n    pass\n
+class BaseAgent:
+    pass

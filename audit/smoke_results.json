@@ -1,0 +1,74 @@
+[
+  {
+    "scenario": "S1",
+    "counts": [
+      1,
+      2,
+      3,
+      10
+    ],
+    "status": "PASS",
+    "experiment_id": "EXP-S1-42-10-4a519af42821a158",
+    "fingerprint": "b09c6a6209fc65d79ff75a348e75bb849bcf43e3a8412077492b5a52530aba8d"
+  },
+  {
+    "scenario": "S2",
+    "counts": [
+      1,
+      2,
+      3,
+      10
+    ],
+    "status": "PASS",
+    "experiment_id": "EXP-S2-42-10-578c624e17790907",
+    "fingerprint": "2681614c183cd386356178d229f44aab041411361a93eeb96ab5b400e7cd0821"
+  },
+  {
+    "scenario": "S3",
+    "counts": [
+      1,
+      2,
+      3,
+      10
+    ],
+    "status": "PASS",
+    "experiment_id": "EXP-S3-42-10-1d80ce1081389655",
+    "fingerprint": "23c9163b1eeac81081b8156113a82da171394d3613f31396911fee6288d515f1"
+  },
+  {
+    "scenario": "S4",
+    "counts": [
+      1,
+      2,
+      3,
+      10
+    ],
+    "status": "PASS",
+    "experiment_id": "EXP-S4-42-10-7c32695cc8e07204",
+    "fingerprint": "a515d253ccd8275d933d7e4b642a46f068fe10efdee9d566e37d4a14a71464f2"
+  },
+  {
+    "scenario": "S5",
+    "counts": [
+      1,
+      2,
+      3,
+      10
+    ],
+    "status": "PASS",
+    "experiment_id": "EXP-S5-42-10-579e2b81ebf8ddc2",
+    "fingerprint": "7eac1acedc7ce39f4c56d4eaddde771f84f6ec490086a0884c5cd44c1585d832"
+  },
+  {
+    "scenario": "S6",
+    "counts": [
+      1,
+      2,
+      3,
+      10
+    ],
+    "status": "PASS",
+    "experiment_id": "EXP-S6-42-10-58604a9159d45ce5",
+    "fingerprint": "9fc29216dd8f96f209f81ff83f4a93297035cb72ad94352a75c3449cd8308a5e"
+  }
+]

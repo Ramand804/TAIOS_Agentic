@@ -1,1 +1,1 @@
-"""Day 8: rule-based baseline."""\n
+"""Day 8: rule-based baseline."""

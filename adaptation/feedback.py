@@ -1,1 +1,1 @@
-"""Day 6+: outcome feedback and adaptation."""\n
+"""Day 6+: outcome feedback and adaptation."""

@@ -1,1 +1,1 @@
-"""Day 3: threat detection model interface."""\n
+"""Day 3: threat detection model interface."""

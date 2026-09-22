@@ -61,6 +61,12 @@ def validate_event_provenance(event, manifest=None, experiment=None):
         if provenance.generator_version != GENERATOR_VERSION:
             errors.append('generator_version')
         if experiment is not None:
+            if event.scenario_id != experiment.scenario_id:
+                errors.append('scenario_id')
+            expected_metadata = experiment.event_metadata(event.sequence_number)
+            for field in ('event_id', 'timestamp'):
+                if getattr(event, field) != expected_metadata[field]:
+                    errors.append(field)
             if provenance.experiment_id != experiment.experiment_id:
                 errors.append('experiment_id')
             if provenance.generator_version != experiment.generator_version:

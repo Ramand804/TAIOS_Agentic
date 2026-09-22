@@ -48,6 +48,7 @@ class EventGenerator:
 
     def generate(self, scenario_id: str, n: int = 100, experiment=None) -> List[IndustrialEvent]:
         run = experiment if experiment is not None else self.create_run(scenario_id, n)
+        run.validate_identity()
         if (run.scenario_id, run.seed, run.total_events) != (scenario_id, self.seed, max(0, n)):
             raise ValueError("Experiment context does not match generation arguments")
         if run.generator_version != GENERATOR_VERSION:

@@ -43,3 +43,15 @@ The stream fingerprint hashes ordered event content and deterministic experiment
 - S4: conflicting evidence
 - S5: concept drift
 - S6: coordinated attack
+
+## Day 1C Step 3: industrial state
+
+`IndustrialState` separates dynamic context from the static asset registry. It defaults to ACTIVE/NORMAL, false maintenance/emergency flags, and registered assets in STOPPED/NORMAL state with unknown (`None`) current values. This default does not infer equipment operation from the plant's production label.
+
+Use `set_production_state`, `set_operating_mode`, `set_maintenance_mode`, `set_emergency_state`, and `update_asset_state` for changes. A successful change increments the plant version once; an asset change also increments that asset's version once. No-op updates leave versions unchanged. Invalid values fail before mutation. Enum transitions are permitted between valid values; process interlocks and automatic coupling of maintenance/emergency flags are not implemented.
+
+`snapshot(asset_id)` returns an immutable snapshot of plant context and the relevant asset. `snapshot()` includes all assets. `to_dict()` returns an independent JSON-compatible representation. No wall clock is used. `IndustrialEnvironment` remains as a compatibility facade with `snapshot()` returning a dictionary; its `state` now holds the validated model instead of an unrestricted dictionary.
+
+`OperationalLimits` centralizes asset/operation/mode ranges. MOTOR-02 `set_speed` ranges are NORMAL 20–80, HIGH_OUTPUT 60–95, REDUCED 10–50, and MAINTENANCE 0–20, inclusive. Checks return `within_limit`, `minimum`, `maximum`, `requested_value`, and `deviation`. For request x and bounds L/U, deviation is `max(L-x, 0, x-U) / (U-L)`. For L=U the denominator is 1, giving absolute distance in the operation's units. Missing limits, unknown assets, invalid modes, and nonfinite values fail explicitly.
+
+S5 changes NORMAL to HIGH_OUTPUT at one-based sequence `max(1, n // 2) + 1`, when that event exists. Ten events change at event 6; a single-event run has no change and records `regime_change_sequence: null`. Each event includes pre-command state context, the limit check, and the regime-change sequence. Both phases remain BENIGN/ALLOW. This does not execute the requested command or implement adaptation. Initial state and operational limits are included in experiment configuration; generator version is `day1c-step3-v1`.

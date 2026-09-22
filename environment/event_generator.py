@@ -6,6 +6,8 @@ from typing import List
 from environment.assets import ASSET_REGISTRY, get_asset
 from environment.identities import DEFAULT_IDENTITIES
 from environment.event import IndustrialEvent
+from environment.industrial_environment import IndustrialState, OperatingMode
+from environment.operational_limits import OperationalLimits
 
 class EventGenerator:
     def __init__(self, seed: int = 42):
@@ -14,10 +16,13 @@ class EventGenerator:
         self._run = None
         self._sequence = 0
         self.assets = ASSET_REGISTRY
+        self.operational_limits = OperationalLimits()
 
     def configuration_snapshot(self):
         return {"assets": [a.to_dict() for a in self.assets.values()],
-                "identities": [asdict(identity) for identity in DEFAULT_IDENTITIES]}
+                "identities": [asdict(identity) for identity in DEFAULT_IDENTITIES],
+                "initial_industrial_state": IndustrialState().to_dict(),
+                "operational_limits": self.operational_limits.to_dict()}
 
     def create_run(self, scenario_id, n=100,
                    simulation_start_time=DEFAULT_SIMULATION_START, event_interval_seconds=1.0):
@@ -149,20 +154,32 @@ class EventGenerator:
         source = get_asset("PLC-01")
         target = get_asset("MOTOR-02")
         out = []
+        state = IndustrialState()
         drift_at = max(1, n // 2)
         for i in range(n):
             after = i >= drift_at
+            if i == drift_at:
+                state.set_operating_mode(OperatingMode.HIGH_OUTPUT)
+            value = self.rng.randint(82, 94) if after else self.rng.randint(45, 70)
+            limit = self.operational_limits.check_operational_limit(
+                target.asset_id, "set_speed", value, state.operating_mode)
+            # Snapshot is pre-command context; this step does not execute commands.
+            snapshot = state.snapshot(target.asset_id).to_dict()
             out.append(self._event(
                 source_id=source.asset_id, source_type=source.asset_type,
                 target_id=target.asset_id, target_type=target.asset_type,
                 identity_id="operator-01", event_type="control_command",
                 operation="set_speed",
-                requested_value=self.rng.randint(82, 94) if after else self.rng.randint(45, 70),
+                requested_value=value,
                 network_zone=source.network_zone, protocol=source.protocol,
                 authentication_status=True, asset_criticality=target.criticality,
                 contextual_features={"production_state":"ACTIVE","anomaly_score":0.65 if after else 0.05,
                                      "drift_phase": "post" if after else "pre",
-                                     "new_operating_regime": after},
+                                     "new_operating_regime": after,
+                                     "regime_change_sequence": drift_at + 1 if drift_at < n else None,
+                                     "operating_mode": state.operating_mode.value,
+                                     "state_snapshot": snapshot,
+                                     "operational_limit": limit.to_dict()},
                 ground_truth="BENIGN", expected_safe_action="ALLOW",
                 scenario_id="S5"))
         return out

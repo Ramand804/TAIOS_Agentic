@@ -9,9 +9,9 @@ from core.experiment import DEFAULT_SIMULATION_START, event_stream_fingerprint
 
 class Orchestrator:
     def __init__(self, seed=42, log_dir="logs",
-                 simulation_start_time=DEFAULT_SIMULATION_START, event_interval_seconds=1.0):
+                 simulation_start_time=DEFAULT_SIMULATION_START, event_interval_seconds=1.0, *, observable_state=False):
         self.event_manager = EventManager()
-        self.generator = EventGenerator(seed=seed)
+        self.generator = EventGenerator(seed=seed, observable_state=observable_state)
         self.log_dir = Path(log_dir)
         self.simulation_start_time = simulation_start_time
         self.event_interval_seconds = event_interval_seconds

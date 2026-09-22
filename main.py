@@ -10,11 +10,13 @@ def main():
     p.add_argument("--log-dir", default="logs")
     p.add_argument("--simulation-start-time", default=DEFAULT_SIMULATION_START)
     p.add_argument("--event-interval-seconds", type=float, default=1.0)
+    p.add_argument("--observable-state", action="store_true", help="Record shared industrial state using the versioned enrichment profile")
     args = p.parse_args()
 
     runner = Orchestrator(seed=args.seed, log_dir=args.log_dir,
                           simulation_start_time=args.simulation_start_time,
-                          event_interval_seconds=args.event_interval_seconds)
+                          event_interval_seconds=args.event_interval_seconds,
+                          observable_state=args.observable_state)
     events = runner.run_scenario(args.scenario, args.events)
     print(f"TAIOS generated {len(events)} events for {args.scenario}")
     print(f"Experiment: {runner.experiment.experiment_id}")

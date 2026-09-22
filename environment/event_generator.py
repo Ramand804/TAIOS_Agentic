@@ -1,7 +1,7 @@
 from __future__ import annotations
 import random
 from dataclasses import asdict
-from core.experiment import ExperimentRun, DEFAULT_SIMULATION_START, GENERATOR_VERSION
+from core.experiment import ExperimentRun, DEFAULT_SIMULATION_START, GENERATOR_VERSION, OBSERVABLE_GENERATOR_VERSION
 from typing import List
 from environment.assets import ASSET_REGISTRY, get_asset
 from environment.identities import DEFAULT_IDENTITIES
@@ -12,7 +12,11 @@ from environment.industrial_environment import IndustrialState, OperatingMode
 from environment.operational_limits import OperationalLimits
 
 class EventGenerator:
-    def __init__(self, seed: int = 42):
+    def __init__(self, seed: int = 42, *, observable_state=False):
+        if type(observable_state) is not bool:
+            raise ValueError("observable_state must be bool")
+        self.observable_state = observable_state
+        self._industrial_state = IndustrialState()
         self.seed = seed
         self.rng = random.Random(seed)
         self._run = None
@@ -20,11 +24,17 @@ class EventGenerator:
         self.assets = ASSET_REGISTRY
         self.operational_limits = OperationalLimits()
 
+    @property
+    def generator_version(self):
+        return OBSERVABLE_GENERATOR_VERSION if self.observable_state else GENERATOR_VERSION
+
     def configuration_snapshot(self, scenario_id=None, n=100):
         config = {"assets": [a.to_dict() for a in self.assets.values()],
                 "identities": [asdict(identity) for identity in DEFAULT_IDENTITIES],
                 "initial_industrial_state": IndustrialState().to_dict(),
                 "operational_limits": self.operational_limits.to_dict()}
+        if self.observable_state:
+            config["observable_state"] = True
         if scenario_id is not None:
             config["scenario_manifest"] = get_scenario_manifest(scenario_id, max(0, n)).to_dict()
         return config
@@ -32,10 +42,17 @@ class EventGenerator:
     def create_run(self, scenario_id, n=100,
                    simulation_start_time=DEFAULT_SIMULATION_START, event_interval_seconds=1.0):
         return ExperimentRun(scenario_id, self.seed, max(0, n), simulation_start_time,
+                             generator_version=self.generator_version,
                              event_interval_seconds=event_interval_seconds,
                              configuration=self.configuration_snapshot(scenario_id, n))
 
     def _event(self, **kwargs):
+        if self.observable_state:
+            snapshot = self._industrial_state.snapshot(kwargs['target_id']).to_dict()
+            context = dict(kwargs.get('contextual_features', {}))
+            context.update(production_state=snapshot['production_state'],
+                           operating_mode=snapshot['operating_mode'], state_snapshot=snapshot)
+            kwargs['contextual_features'] = context
         if self._run is not None:
             self._sequence += 1
             kwargs.update(self._run.event_metadata(self._sequence))
@@ -51,11 +68,12 @@ class EventGenerator:
         run.validate_identity()
         if (run.scenario_id, run.seed, run.total_events) != (scenario_id, self.seed, max(0, n)):
             raise ValueError("Experiment context does not match generation arguments")
-        if run.generator_version != GENERATOR_VERSION:
+        if run.generator_version != self.generator_version:
             raise ValueError("Experiment generator_version does not match this generator")
         if run.configuration != self.configuration_snapshot(scenario_id, n):
             raise ValueError("Experiment configuration does not match the current environment")
         self._manifest = get_scenario_manifest(scenario_id, max(0, n))
+        self._industrial_state = IndustrialState()
         self.rng.seed(run.seed)
         self._run, self._sequence = run, 0
         try:
@@ -166,7 +184,7 @@ class EventGenerator:
         source = get_asset("PLC-01")
         target = get_asset("MOTOR-02")
         out = []
-        state = IndustrialState()
+        state = self._industrial_state if self.observable_state else IndustrialState()
         drift_at = (self._manifest.transition_sequence or n + 1) - 1
         for i in range(n):
             after = i >= drift_at

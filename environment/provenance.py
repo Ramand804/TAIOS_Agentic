@@ -1,7 +1,7 @@
 """Experimental origin only; no agent inference or decision explanation."""
 from dataclasses import asdict, dataclass
 from environment.scenarios import get_scenario_manifest
-from core.experiment import GENERATOR_VERSION
+from core.experiment import GENERATOR_VERSION, OBSERVABLE_GENERATOR_VERSION
 
 
 class ProvenanceIntegrityError(ValueError):
@@ -58,7 +58,7 @@ def validate_event_provenance(event, manifest=None, experiment=None):
             errors.append('transition_type')
         if provenance.causal_tags != manifest.causal_tags_at(event.sequence_number):
             errors.append('causal_tags')
-        if provenance.generator_version != GENERATOR_VERSION:
+        if provenance.generator_version not in {GENERATOR_VERSION, OBSERVABLE_GENERATOR_VERSION}:
             errors.append('generator_version')
         if experiment is not None:
             if event.scenario_id != experiment.scenario_id:

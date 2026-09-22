@@ -8,6 +8,7 @@ from typing import Any
 
 DEFAULT_SIMULATION_START = "2026-01-01T00:00:00+00:00"
 GENERATOR_VERSION = "day1c-step4-v1"
+OBSERVABLE_GENERATOR_VERSION = "day2c5-observable-v1"
 
 
 def canonical_json(value: Any) -> str:

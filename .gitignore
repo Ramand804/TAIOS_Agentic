@@ -5,3 +5,6 @@ __pycache__/
 logs/
 models/*.pkl
 models/*.pt
+
+# Reproducible evaluation output; keep code and commands in Git.
+results/

@@ -1,0 +1,13 @@
+# UNCALIBRATED / PROVISIONAL engineering parameters, not validated measurements.
+# Day-2A proposed values; device mismatch severity is a new explicit provisional default.
+version: day2b-evidence-v1
+calibration_status: UNCALIBRATED
+identity_positive_strength: 0.10
+identity_negative_strength: 1.0
+identity_confidence: 0.50
+device_positive_strength: 0.10
+device_negative_strength: 1.0
+device_confidence: 0.50
+behavior_positive_strength: 0.10
+behavior_confidence: 0.50
+deviation_saturation: 1.0

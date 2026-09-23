@@ -1,0 +1,22 @@
+policy_version: day4c5-permissions-v1
+rules:
+  - rule_id: PERM-PLC-OPERATOR-SPEED
+    subject_role: operator
+    source_type: PLC
+    target_type: actuator
+    operation: set_speed
+    authorization: AUTHORIZED
+    rationale: >-
+      Explicit simulation assumption: registered operators may request actuator
+      speed control through registered PLC controllers. Permission does not
+      establish process safety, wiring, value validity or execution authority.
+  - rule_id: PERM-PLC-ENGINEER-SPEED
+    subject_role: engineer
+    source_type: PLC
+    target_type: actuator
+    operation: set_speed
+    authorization: AUTHORIZED
+    rationale: >-
+      Explicit simulation assumption: registered engineers may request actuator
+      speed control through registered PLC controllers. This grants no register
+      programming, source impersonation, isolation or safety override authority.

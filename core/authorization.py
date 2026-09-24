@@ -95,3 +95,22 @@ class AuthorizationAssessment(Record):
             raise ValueError('Assessment requires reasons')
         if self.status == AuthorizationStatus.AUTHORIZED and not ids:
             raise ValueError('Authorization requires an explicit grant')
+
+
+def authorization_request_reference(observation, *, assets=None, identities=None):
+    """Shared permission-scope binding, without evaluating any permission rule."""
+    from core.experiment import fingerprint
+    from environment.assets import ASSET_REGISTRY
+    from environment.identities import DEFAULT_IDENTITIES
+    assets = ASSET_REGISTRY if assets is None else assets
+    identities = {i.identity_id: i for i in DEFAULT_IDENTITIES} if identities is None else identities
+    identity = identities.get(observation['identity_id'])
+    source = assets.get(observation['source_id'])
+    target = assets.get(observation['target_id'])
+    facts = {k: observation[k] for k in ('identity_id', 'source_id', 'source_type',
+             'target_id', 'target_type', 'operation', 'authentication_status',
+             'network_zone', 'protocol')}
+    facts['registered_role'] = identity.role if identity else None
+    facts['registered_source'] = source.to_dict() if source else None
+    facts['registered_target'] = target.to_dict() if target else None
+    return fingerprint(facts)

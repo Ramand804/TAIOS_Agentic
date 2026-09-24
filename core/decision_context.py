@@ -14,7 +14,7 @@ from core.trust_assessment import TrustAssessment
 from environment.industrial_environment import OperatingMode, validate_number
 from environment.operational_limits import LimitCheck
 
-VERSION='day4b-context-v1'
+VERSION='day4c7-context-v1'
 
 
 class AuthorizationStatus(str,Enum):
@@ -140,6 +140,10 @@ class DecisionContext(Record):
     risk_assessment: RiskAssessment
     capabilities: CapabilityEnvelope
     policy_context: PolicyContext
+    authorization_assessment: object = None
+    permission_policy: object = None
+    autonomous_authority_assessment: object = None
+    authority_policy: object = None
     state_version: int | None = None
     context_version: str = VERSION
 
@@ -159,6 +163,29 @@ class DecisionContext(Record):
         for name in ('source_id','target_id','operation','composite_trust','distrust_score','criticality_score',
                      'trust_state_version','trust_evidence_coverage','prior_only_dimensions'):
             if getattr(expected,name)!=getattr(self.risk_assessment,name): raise ValueError(f'Assessment mismatch: {name}')
+        from core.authorization import (AuthorizationAssessment, PermissionPolicy,
+                                        authorization_request_reference)
+        assessment = self.authorization_assessment
+        if assessment is None:
+            if self.permission_policy is not None:
+                raise ValueError('Permission policy requires an explicit authorization assessment')
+        else:
+            if type(assessment) is not AuthorizationAssessment:
+                raise ValueError('Expected AuthorizationAssessment')
+            policy = PermissionPolicy.load() if self.permission_policy is None else self.permission_policy
+            if type(policy) is not PermissionPolicy:
+                raise ValueError('Expected PermissionPolicy')
+            for name in ('identity_id', 'source_id', 'target_id', 'operation'):
+                if getattr(assessment, name) != o[name]:
+                    raise ValueError(f'Authorization scope mismatch: {name}')
+            if assessment.request_reference != authorization_request_reference(o):
+                raise ValueError('Authorization request reference mismatch')
+            if (assessment.authorization_policy_version != policy.policy_version or
+                    assessment.permission_policy_reference != policy.reference):
+                raise ValueError('Authorization policy reference/version mismatch')
+            if not set(assessment.matched_rule_ids) <= {r.rule_id for r in policy.rules}:
+                raise ValueError('Authorization matched rule is absent from policy')
+            object.__setattr__(self, 'permission_policy', policy)
         ref=fingerprint(o)
         if self.capabilities.observation_reference!=ref or self.policy_context.observation_reference!=ref:
             raise ValueError('Observation reference mismatch')
@@ -167,6 +194,34 @@ class DecisionContext(Record):
         validity=self.capabilities.operational_validity
         if validity.operating_mode!=o['contextual_features'].get('operating_mode'): raise ValueError('Capability mode mismatch')
         if validity.check is not None and validity.check.requested_value!=o['requested_value']: raise ValueError('Capability value mismatch')
+        from core.autonomous_authority import AutonomousAuthorityAssessment, AuthorityPolicy
+        authority = self.autonomous_authority_assessment
+        if authority is None:
+            if self.authority_policy is not None:
+                raise ValueError('Authority policy requires an explicit authority assessment')
+        else:
+            if type(authority) is not AutonomousAuthorityAssessment:
+                raise ValueError('Expected AutonomousAuthorityAssessment')
+            authority_policy = AuthorityPolicy.load() if self.authority_policy is None else self.authority_policy
+            if type(authority_policy) is not AuthorityPolicy:
+                raise ValueError('Expected AuthorityPolicy')
+            for name, actual in (('source_id', o['source_id']), ('identity_id', o['identity_id']),
+                                 ('target_id', o['target_id']), ('operation', o['operation'])):
+                if getattr(authority, name) != actual:
+                    raise ValueError(f'Authority scope mismatch: {name}')
+            if authority.authorization_status != self.authorization_status:
+                raise ValueError('Authority/authorization status mismatch')
+            if authority.operational_validity != validity.status:
+                raise ValueError('Authority operational validity mismatch')
+            if (authority.authority_policy_version != authority_policy.policy_version or
+                    authority.authority_policy_fingerprint != authority_policy.reference):
+                raise ValueError('Authority policy reference/version mismatch')
+            if authority.context_input_reference != self.authority_input_reference:
+                raise ValueError('Authority context input reference mismatch')
+            policy_ids = {rule.rule_id for rule in authority_policy.rules}
+            if any(not set(authority.matched_policy_ids[action.value]) <= policy_ids for action in Action):
+                raise ValueError('Authority matched rule is absent from policy')
+            object.__setattr__(self, 'authority_policy', authority_policy)
         object.__setattr__(self,'observation',freeze(o))
 
     @property
@@ -174,4 +229,33 @@ class DecisionContext(Record):
     @property
     def target_id(self): return self.observation['target_id']
     @property
-    def authorization_status(self): return self.policy_context.authorization_status
+    def authorization_status(self):
+        return (AuthorizationStatus.UNKNOWN if self.authorization_assessment is None
+                else self.authorization_assessment.status)
+
+    @property
+    def authorization_policy_version(self):
+        return (None if self.authorization_assessment is None
+                else self.authorization_assessment.authorization_policy_version)
+
+    @property
+    def authority_input_reference(self):
+        return fingerprint({
+            'observation': export(self.observation),
+            'trust_assessment': self.trust_assessment.to_inference_dict(),
+            'risk_assessment': self.risk_assessment.to_inference_dict(),
+            'capabilities': self.capabilities.to_dict(),
+            'policy_context': self.policy_context.to_dict(),
+            'authorization_assessment': export(self.authorization_assessment),
+            'permission_policy': export(self.permission_policy),
+            'state_version': self.state_version,
+            'context_version': self.context_version,
+        })
+
+    def to_dict(self):
+        result = super().to_dict()
+        result.update(authorization_status=self.authorization_status.value,
+                      authorization_policy_version=self.authorization_policy_version,
+                      authorization_basis='LEGACY_UNKNOWN' if self.authorization_assessment is None else 'ASSESSMENT',
+                      authority_basis='LEGACY_UNAVAILABLE' if self.autonomous_authority_assessment is None else 'ASSESSMENT')
+        return result

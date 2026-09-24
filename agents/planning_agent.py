@@ -1,6 +1,7 @@
 """Provisional deterministic candidate generation; never action selection."""
 from agents.base_agent import BaseAgent
 from core.actions import Action
+from core.autonomous_authority import AuthorityStatus
 from core.decision_context import DecisionContext
 from core.decision_contracts import CandidateAction, export
 from core.planning_result import PlanningResult, PLANNING_VERSION
@@ -16,14 +17,20 @@ class PlanningAgent(BaseAgent):
         supported = capability.supported_actions
         policy_facts = context.policy_context.to_dict()
         unresolved = [
-            f'Authorization is {context.authorization_status.value}; operation permission is not established.',
             'Governance authorization and implemented execution capability are absent.',
         ]
+        authority = context.autonomous_authority_assessment
+        if authority is None:
+            if context.authorization_status.value != 'AUTHORIZED':
+                unresolved.insert(0, f'Authorization is {context.authorization_status.value}; operation permission is not established.')
+        else:
+            unresolved.extend(authority.unresolved_requirements)
         if validity.status == 'UNKNOWN':
             unresolved.append('Current operation/mode validity is unknown.')
-        for key, fact in policy_facts['policy_facts'].items():
-            if fact['enabled']:
-                unresolved.append(f'{key}: policy applicability is {fact["applicability"]}; no executable predicate.')
+        if authority is None:
+            for key, fact in policy_facts['policy_facts'].items():
+                if fact['enabled']:
+                    unresolved.append(f'{key}: policy applicability is {fact["applicability"]}; no executable predicate.')
         coverage = context.trust_assessment.evidence_coverage
         evidence = (
             f'Authorization: {context.authorization_status.value}.',
@@ -33,6 +40,8 @@ class PlanningAgent(BaseAgent):
                 '; '.join(f'{dimension}={"/".join(signs)}' for dimension, signs in coverage.items()),
             f'Risk: {context.risk_assessment.risk_score}; weighted coverage: {context.risk_assessment.coverage:.12g}; not a confidence probability.',
         )
+        if authority is not None:
+            evidence += (f'Autonomous authority policy: {authority.authority_policy_version}; per-action facts are not rankings.',)
         if validity.check is not None:
             check = validity.check
             evidence += (f'Current range [{check.minimum},{check.maximum}]; deviation {check.deviation:.12g}.',)
@@ -43,11 +52,17 @@ class PlanningAgent(BaseAgent):
         }
         candidates, exclusions = [], {}
         constraints = ('No execution without governance authorization.',
-                       'Unresolved policy applicability is not policy compliance.',
+                       ('Autonomous authority permits consideration only; it is not governance approval.'
+                        if authority is not None else
+                        'Unresolved policy applicability is not policy compliance.'),
                        'PROVISIONAL / UNCALIBRATED planning rules; no action ranking.')
         for action in Action:
             if action not in supported:
                 exclusions[action.value] = 'Capability not established for this context.'
+                continue
+            if authority is not None and authority.status_for(action) != AuthorityStatus.PERMITTED:
+                status = authority.status_for(action).value
+                exclusions[action.value] = f'Autonomous authority is {status}: ' + ' '.join(authority.reasons[action.value])
                 continue
             if action == Action.LIMIT:
                 if validity.status != 'OUTSIDE_LIMIT' or validity.check is None:
@@ -75,6 +90,26 @@ class PlanningAgent(BaseAgent):
                     requires_approval=True, policy_constraints=constraints, evidence_basis=evidence,
                     unresolved_prerequisites=tuple(unresolved)+(
                         'A reviewed hold/disposition envelope and external approval workflow are not implemented.',),
+                    capability_reference=capability.reference, planning_policy_version=PLANNING_VERSION))
+            elif action == Action.ALLOW and authority is not None:
+                candidates.append(CandidateAction(action=action, payload=dict(payload),
+                    rationale='Explicit authorization, current-mode conformance and required direct evidence satisfy the routine autonomous-authority policy.',
+                    safety_effect='Permits consideration of the exact conforming request; physical safety and execution remain subject to governance.',
+                    operational_impact='The requested operation may change the physical process; outcome is not simulated here.',
+                    reversibility='UNKNOWN: permission and conformance do not prove process reversibility.',
+                    requires_approval=False, policy_constraints=constraints, evidence_basis=evidence,
+                    unresolved_prerequisites=('Governance must authorize the exact current context and payload before execution.',
+                        'No implemented executor or physical-outcome model exists.'),
+                    capability_reference=capability.reference, planning_policy_version=PLANNING_VERSION))
+            elif action == Action.MONITOR and authority is not None:
+                candidates.append(CandidateAction(action=action, payload=dict(payload, monitoring_mode='LOGICAL_ONLY'),
+                    rationale='Routine autonomous authority permits the conforming request to be considered with logical monitoring.',
+                    safety_effect='Adds an observation intent without changing the requested operation or proving a monitoring service exists.',
+                    operational_impact='The original operation remains permissive; monitoring has no implemented plant effect.',
+                    reversibility='UNKNOWN for the requested process change; the logical monitoring annotation is non-actuating.',
+                    requires_approval=False, policy_constraints=constraints, evidence_basis=evidence,
+                    unresolved_prerequisites=('Governance must authorize the exact current context and payload before execution.',
+                        'A real monitoring service and executor are not implemented.'),
                     capability_reference=capability.reference, planning_policy_version=PLANNING_VERSION))
             elif action in (Action.ALLOW, Action.MONITOR):
                 exclusions[action.value] = 'Permissive prerequisites are not established: explicit authorization, applicable policy clearance and executable permission envelope; monitoring cannot substitute for these.'

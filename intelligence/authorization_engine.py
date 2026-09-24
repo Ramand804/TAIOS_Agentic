@@ -2,8 +2,7 @@
 import math
 from types import MappingProxyType
 
-from core.authorization import AuthorizationAssessment, PermissionPolicy, AuthorizationStatus
-from core.experiment import fingerprint
+from core.authorization import AuthorizationAssessment, PermissionPolicy, AuthorizationStatus, authorization_request_reference
 from core.runtime_inputs import OBSERVABLE_FIELDS
 from environment.assets import ASSET_REGISTRY
 from environment.identities import DEFAULT_IDENTITIES
@@ -47,12 +46,6 @@ class AuthorizationEngine:
         target = self.assets.get(o['target_id'])
         # Bind only permission-relevant facts. Values/mode belong to process
         # validity, not this policy; full payload binding belongs to integration.
-        facts = {k: o[k] for k in ('identity_id', 'source_id', 'source_type',
-                 'target_id', 'target_type', 'operation', 'authentication_status',
-                 'network_zone', 'protocol')}
-        facts['registered_role'] = identity.role if identity else None
-        facts['registered_source'] = source.to_dict() if source else None
-        facts['registered_target'] = target.to_dict() if target else None
         matched = ()
         reasons = []
         known = identity is not None and source is not None and target is not None
@@ -85,4 +78,4 @@ class AuthorizationEngine:
             **{k: o[k] for k in ('identity_id', 'source_id', 'target_id', 'operation')},
             status=status, matched_rule_ids=tuple(r.rule_id for r in matched), reasons=tuple(reasons),
             authorization_policy_version=self.policy.policy_version,
-            permission_policy_reference=self.policy.reference, request_reference=fingerprint(facts))
+            permission_policy_reference=self.policy.reference, request_reference=authorization_request_reference(o, assets=self.assets, identities=self.identities))

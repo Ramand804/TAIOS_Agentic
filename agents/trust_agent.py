@@ -16,6 +16,16 @@ class TrustAgent(BaseAgent):
         self._model = TrustModel(self._model_config)
         self._extractor = TrustEvidenceExtractor(self._evidence_config)
 
+    def _checkpoint(self):
+        """Internal transaction snapshot for deterministic orchestration."""
+        return (dict(self._model._states),
+                {entity: set(tokens) for entity, tokens in self._model._deliveries.items()})
+
+    def _restore(self, checkpoint):
+        states, deliveries = checkpoint
+        self._model._states = dict(states)
+        self._model._deliveries = {entity: set(tokens) for entity, tokens in deliveries.items()}
+
     def assess(self, observation, *, delivery_token, observation_number, correlation_metadata=None):
         # Validate audit type before updating state, but never send it to inference.
         if correlation_metadata is not None and type(correlation_metadata) is not AuditCorrelation:

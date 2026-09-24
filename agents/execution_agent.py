@@ -33,6 +33,12 @@ class ExecutionAgent(BaseAgent):
     def __init__(self):
         self._successful = {}
 
+    def _checkpoint(self):
+        return dict(self._successful)
+
+    def _restore(self, checkpoint):
+        self._successful = dict(checkpoint)
+
     @staticmethod
     def _execution_id(context, plan, proposal, governance):
         return fingerprint({

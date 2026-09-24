@@ -125,7 +125,7 @@ class GovernanceStatus(str,Enum):
 @dataclass(frozen=True, kw_only=True)
 class GovernanceDecision(Record):
     status: GovernanceStatus
-    proposed_action: Action
+    proposed_action: Action | None
     authorized_action: Action | None
     authorized_payload: object | None
     policy_checks: object
@@ -135,18 +135,25 @@ class GovernanceDecision(Record):
     proposal_reference: str
     authorization_reference: str | None
     governance_policy_version: str
+    check_reasons: object | None = None
 
     def __post_init__(self):
         object.__setattr__(self,'status',GovernanceStatus(self.status))
-        object.__setattr__(self,'proposed_action',Action(self.proposed_action))
+        if self.proposed_action is not None: object.__setattr__(self,'proposed_action',Action(self.proposed_action))
         if self.authorized_action is not None: object.__setattr__(self,'authorized_action',Action(self.authorized_action))
         if not isinstance(self.policy_checks,Mapping) or any(v not in ('PASS','FAIL','UNKNOWN') for v in self.policy_checks.values()):
             raise ValueError('Invalid policy checks')
         object.__setattr__(self,'policy_checks',freeze(self.policy_checks))
+        if self.check_reasons is not None:
+            if (not isinstance(self.check_reasons,Mapping) or
+                    set(self.check_reasons)!=set(self.policy_checks)):
+                raise ValueError('Check reasons must match policy checks')
+            for value in self.check_reasons.values(): text_value(value,'check reason')
+            object.__setattr__(self,'check_reasons',freeze(self.check_reasons))
         object.__setattr__(self,'violations',texts(self.violations))
         allowed=self.status in (GovernanceStatus.APPROVED,GovernanceStatus.OVERRIDDEN)
         if allowed:
-            if self.authorized_action is None or not isinstance(self.authorized_payload,Mapping): raise ValueError('Authorization requires action/payload')
+            if self.proposed_action is None or self.authorized_action is None or not isinstance(self.authorized_payload,Mapping): raise ValueError('Authorization requires action/payload')
             text_value(self.authorization_reference,'authorization_reference')
             if not self.policy_checks or any(v!='PASS' for v in self.policy_checks.values()) or self.violations:
                 raise ValueError('Authorization requires passing checks and no violations')

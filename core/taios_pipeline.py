@@ -16,18 +16,20 @@ from core.runtime_inputs import runtime_observation
 from environment.industrial_environment import IndustrialState
 from intelligence.authorization_engine import AuthorizationEngine
 from intelligence.autonomous_authority_engine import AutonomousAuthorityEngine
+from intelligence.correlation_evidence_model import CorrelationEvidenceModel
 from intelligence.decision_context_builder import build_decision_context
 from intelligence.operational_semantic_model import OperationalSemanticModel
 from intelligence.threat_evidence_model import ThreatEvidenceModel
 
-PIPELINE_VERSION = 'milestone6c-pipeline-v1'
+PIPELINE_VERSION = 'milestone6d-pipeline-v1'
 
 
 class TAIOSPipeline:
     def __init__(self, *, event_manager=None, trust_agent=None, risk_agent=None,
                  authorization_engine=None, authority_engine=None, planning_agent=None,
                  decision_agent=None, governance_agent=None, execution_agent=None,
-                 operational_semantic_model=None, threat_evidence_model=None):
+                 operational_semantic_model=None, threat_evidence_model=None,
+                 correlation_evidence_model=None):
         self.event_manager = event_manager or EventManager()
         self.trust_agent = trust_agent or TrustAgent()
         self.risk_agent = risk_agent or RiskAgent()
@@ -39,6 +41,7 @@ class TAIOSPipeline:
         self.execution_agent = execution_agent or ExecutionAgent()
         self.operational_semantic_model = operational_semantic_model or OperationalSemanticModel()
         self.threat_evidence_model = threat_evidence_model or ThreatEvidenceModel()
+        self.correlation_evidence_model = correlation_evidence_model or CorrelationEvidenceModel()
         self._entity_observations = defaultdict(int)
         self._processed_events = {}
 
@@ -46,6 +49,7 @@ class TAIOSPipeline:
         self.trust_agent.reset()
         self.execution_agent._restore({})
         self.threat_evidence_model.reset()
+        self.correlation_evidence_model.reset()
         self._entity_observations.clear()
         self._processed_events.clear()
 
@@ -94,6 +98,7 @@ class TAIOSPipeline:
                 authorization_assessment=prior.authorization_assessment,
                 operational_semantic_assessment=prior.operational_semantic_assessment,
                 threat_assessment=prior.threat_assessment,
+                correlation_assessment=prior.correlation_assessment,
                 authority_assessment=prior.authority_assessment,
                 decision_context=prior.decision_context,
                 planning_result=prior.planning_result,
@@ -107,6 +112,7 @@ class TAIOSPipeline:
         counts_checkpoint = dict(self._entity_observations)
         execution_checkpoint = self.execution_agent._checkpoint()
         threat_checkpoint = self.threat_evidence_model._checkpoint()
+        correlation_checkpoint = self.correlation_evidence_model._checkpoint()
         stage = 'event_validation'
         try:
             self.event_manager.validate((event,))
@@ -122,6 +128,10 @@ class TAIOSPipeline:
             stage = 'threat_evidence'
             threat = self.threat_evidence_model.assess(
                 observation, semantics, authorization)
+            stage = 'correlation_evidence'
+            event_reference = fingerprint(observation)
+            correlation = self.correlation_evidence_model.assess(
+                observation, threat, current_event_reference=event_reference)
             source = observation['source_id']
             self._entity_observations[source] += 1
             observation_number = self._entity_observations[source]
@@ -162,11 +172,12 @@ class TAIOSPipeline:
             state_after = clone_state(execution.resulting_state)
             result = PipelineResult(
                 event_id=event.event_id, sequence_number=event.sequence_number,
-                event_reference=fingerprint(observation), observable_input=observation,
+                event_reference=event_reference, observable_input=observation,
                 trust_assessment=trust, risk_assessment=risk,
                 authorization_assessment=authorization,
                 operational_semantic_assessment=semantics,
                 threat_assessment=threat,
+                correlation_assessment=correlation,
                 authority_assessment=authority, decision_context=context,
                 planning_result=plan, proposed_decision=proposal,
                 governance_decision=governance, execution_result=execution,
@@ -183,6 +194,7 @@ class TAIOSPipeline:
             self._entity_observations = defaultdict(int, counts_checkpoint)
             self.execution_agent._restore(execution_checkpoint)
             self.threat_evidence_model._restore(threat_checkpoint)
+            self.correlation_evidence_model._restore(correlation_checkpoint)
             self._failure(stage, exc, event, state)
 
     def run_episode(self, events, initial_state=None, *, scenario_reference=None, seed=None):

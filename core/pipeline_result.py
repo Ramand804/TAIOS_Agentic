@@ -37,6 +37,7 @@ class PipelineResult(Record):
     authorization_assessment: object
     operational_semantic_assessment: object
     threat_assessment: object
+    correlation_assessment: object
     authority_assessment: object
     decision_context: object
     planning_result: object
@@ -59,6 +60,8 @@ class PipelineResult(Record):
             raise ValueError('Context observation is not the pipeline observation')
         if self.decision_context.operational_semantic_assessment != self.operational_semantic_assessment:
             raise ValueError('Context semantic assessment is not the pipeline assessment')
+        if self.correlation_assessment.current_event_reference != self.event_reference:
+            raise ValueError('Correlation assessment/event chain mismatch')
         if self.planning_result.context_fingerprint != self.decision_context.reference:
             raise ValueError('Plan/context chain mismatch')
         if self.proposed_decision.planning_reference != self.planning_result.reference:
@@ -76,6 +79,7 @@ class PipelineResult(Record):
             'event_reference': self.event_reference,
             'context_reference': self.decision_context.reference,
             'threat_assessment_reference': self.threat_assessment.reference,
+            'correlation_assessment_reference': self.correlation_assessment.reference,
             'planning_reference': self.planning_result.reference,
             'proposal_reference': self.proposed_decision.reference,
             'governance_reference': self.governance_decision.reference,
@@ -97,6 +101,7 @@ class PipelineResult(Record):
             'authorization_assessment': self.authorization_assessment.to_dict(),
             'operational_semantic_assessment': self.operational_semantic_assessment.to_dict(),
             'threat_assessment': self.threat_assessment.to_dict(),
+            'correlation_assessment': self.correlation_assessment.to_dict(),
             'authority_assessment': self.authority_assessment.to_dict(),
             'decision_context': self.decision_context.to_dict(),
             'planning_result': self.planning_result.to_dict(),

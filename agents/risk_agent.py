@@ -16,7 +16,8 @@ class RiskAgent(BaseAgent):
         self._model = RiskModel()
 
     def assess(self, safe_observation, trust_assessment, *,
-               expected_trust_state_version=None, correlation_metadata=None):
+               expected_trust_state_version=None, correlation_metadata=None,
+               threat_assessment=None):
         """Stateless replay; caller supplies current pairing assertions when known.
 
         Correlation is compared as an opaque record, never parsed or scored.
@@ -34,7 +35,9 @@ class RiskAgent(BaseAgent):
                 raise ValueError('correlation_metadata must be AuditCorrelation')
             if trust_assessment.audit is not None and trust_assessment.audit != correlation_metadata:
                 raise ValueError('TrustAssessment audit correlation does not match supplied correlation')
-        risk_input = build_risk_input(safe_observation, trust_assessment, config=self._config)
+        risk_input = build_risk_input(
+            safe_observation, trust_assessment, config=self._config,
+            threat_assessment=threat_assessment)
         assessment = self._model.evaluate(risk_input)
         if correlation_metadata is not None:
             assessment = replace(assessment, audit=correlation_metadata)

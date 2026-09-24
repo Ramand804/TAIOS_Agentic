@@ -78,6 +78,9 @@ class RiskInput:
     threat_probability: float | None = None
     threat_available: bool = False
     threat_score_kind: str = 'UNAVAILABLE'
+    threat_assessment_reference: str | None = None
+    threat_evidence_coverage: float | None = None
+    threat_unavailable_reason: str | None = 'NO_THREAT_ASSESSMENT'
     anomaly_score: float | None = None
     anomaly_available: bool = False
     anomaly_category: str = 'NONE'
@@ -100,9 +103,21 @@ class RiskInput:
                 raise ValueError('Availability must explicitly agree with a non-null value')
             if available:
                 unit_value(value, 'available signal')
-        kinds = {'CONFIDENCE', 'CALIBRATED_PROBABILITY'} if self.threat_available else {'UNAVAILABLE'}
+        kinds = {'CONFIDENCE', 'CALIBRATED_PROBABILITY', 'SECURITY_SIGNAL'} if self.threat_available else {'UNAVAILABLE'}
         if self.threat_score_kind not in kinds:
             raise ValueError('Threat score kind disagrees with availability')
+        if self.threat_assessment_reference is not None:
+            text_value(self.threat_assessment_reference, 'threat_assessment_reference')
+            unit_value(self.threat_evidence_coverage, 'threat_evidence_coverage')
+        elif self.threat_evidence_coverage is not None:
+            raise ValueError('Threat evidence coverage requires an assessment reference')
+        if self.threat_available:
+            if self.threat_unavailable_reason == 'NO_THREAT_ASSESSMENT':
+                object.__setattr__(self, 'threat_unavailable_reason', None)
+            elif self.threat_unavailable_reason is not None:
+                raise ValueError('Available threat signal cannot have an unavailable reason')
+        else:
+            text_value(self.threat_unavailable_reason, 'threat_unavailable_reason')
         if self.anomaly_category not in {'NONE', 'INDEPENDENT', 'OPERATIONAL_LIMIT_SHARED_WITH_TRUST'}:
             raise ValueError('Unknown anomaly category')
         if self.anomaly_available != (self.anomaly_category == 'INDEPENDENT'):
@@ -140,6 +155,11 @@ class RiskInput:
             ('EXCLUDED_CORRELATED' if self.anomaly_category == 'OPERATIONAL_LIMIT_SHARED_WITH_TRUST' else 'MISSING')))))
 
     @property
+    def threat_signal(self):
+        """Preferred terminology; threat_probability remains a compatibility field."""
+        return self.threat_probability
+
+    @property
     def original_weights(self):
         return self.config.original_weights
 
@@ -171,7 +191,9 @@ class RiskInput:
         result = {name: getattr(self, name) for name in (
             'source_id', 'target_id', 'operation', 'entity_id', 'composite_trust', 'distrust_score',
             'criticality_score', 'trust_state_version', 'threat_probability', 'threat_available',
-            'threat_score_kind', 'anomaly_score', 'anomaly_available', 'anomaly_category', 'coverage')}
+            'threat_score_kind', 'threat_assessment_reference', 'threat_evidence_coverage',
+            'threat_unavailable_reason', 'anomaly_score', 'anomaly_available', 'anomaly_category', 'coverage')}
+        result['threat_signal'] = self.threat_signal
         result.update(trust_evidence_coverage={k: list(v) for k, v in self.trust_evidence_coverage.items()},
                       prior_only_dimensions=list(self.prior_only_dimensions), reasons=list(self.reasons),
                       component_availability=dict(self.component_availability), coverage_details=self.coverage_details,

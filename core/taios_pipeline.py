@@ -20,7 +20,7 @@ from intelligence.decision_context_builder import build_decision_context
 from intelligence.operational_semantic_model import OperationalSemanticModel
 from intelligence.threat_evidence_model import ThreatEvidenceModel
 
-PIPELINE_VERSION = 'milestone6b-pipeline-v1'
+PIPELINE_VERSION = 'milestone6c-pipeline-v1'
 
 
 class TAIOSPipeline:
@@ -117,6 +117,11 @@ class TAIOSPipeline:
             stage = 'operational_semantics'
             semantics = self.operational_semantic_model.assess(observation)
 
+            stage = 'authorization_assessment'
+            authorization = self.authorization_engine.assess(observation)
+            stage = 'threat_evidence'
+            threat = self.threat_evidence_model.assess(
+                observation, semantics, authorization)
             source = observation['source_id']
             self._entity_observations[source] += 1
             observation_number = self._entity_observations[source]
@@ -127,12 +132,8 @@ class TAIOSPipeline:
             stage = 'risk_assessment'
             risk = self.risk_agent.assess(
                 observation, trust,
-                expected_trust_state_version=trust.trust_state_version)
-            stage = 'authorization_assessment'
-            authorization = self.authorization_engine.assess(observation)
-            stage = 'threat_evidence'
-            threat = self.threat_evidence_model.assess(
-                observation, semantics, authorization)
+                expected_trust_state_version=trust.trust_state_version,
+                threat_assessment=threat)
             stage = 'decision_context'
             base_context = build_decision_context(
                 observation, trust, risk, authorization,

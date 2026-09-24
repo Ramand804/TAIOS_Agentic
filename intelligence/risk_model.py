@@ -6,6 +6,7 @@ from core.risk_input import COMPONENTS, RiskInput
 from core.risk_assessment import RiskAssessment
 
 MODEL_VERSION = 'day3c-model-v1'
+THREAT_INTEGRATION_MODEL_VERSION = 'milestone6c-risk-threat-integration-v1'
 BOUNDARY_TOLERANCE = 1e-12
 
 
@@ -17,7 +18,7 @@ class RiskModel:
         weights = risk_input.effective_weights
         availability = risk_input.component_availability
         values = dict(zip(COMPONENTS, (
-            risk_input.threat_probability, risk_input.distrust_score,
+            risk_input.threat_signal, risk_input.distrust_score,
             risk_input.criticality_score, risk_input.anomaly_score)))
         reasons = list(risk_input.reasons)
         if risk_input.coverage == 0:
@@ -46,5 +47,8 @@ class RiskModel:
                 reasons.append(f'{key}: Signal unavailable; no value imputed.')
         payload = {field.name: getattr(risk_input, field.name) for field in fields(RiskInput)}
         payload['reasons'] = tuple(reasons)
+        model_version = (THREAT_INTEGRATION_MODEL_VERSION
+                         if risk_input.threat_assessment_reference is not None
+                         else MODEL_VERSION)
         return RiskAssessment(**payload, risk_score=score, component_contributions=contributions,
-                              model_version=MODEL_VERSION)
+                              model_version=model_version)

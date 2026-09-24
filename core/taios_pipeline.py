@@ -17,14 +17,16 @@ from environment.industrial_environment import IndustrialState
 from intelligence.authorization_engine import AuthorizationEngine
 from intelligence.autonomous_authority_engine import AutonomousAuthorityEngine
 from intelligence.decision_context_builder import build_decision_context
+from intelligence.operational_semantic_model import OperationalSemanticModel
 
-PIPELINE_VERSION = 'day5a-pipeline-v1'
+PIPELINE_VERSION = 'milestone6a-pipeline-v1'
 
 
 class TAIOSPipeline:
     def __init__(self, *, event_manager=None, trust_agent=None, risk_agent=None,
                  authorization_engine=None, authority_engine=None, planning_agent=None,
-                 decision_agent=None, governance_agent=None, execution_agent=None):
+                 decision_agent=None, governance_agent=None, execution_agent=None,
+                 operational_semantic_model=None):
         self.event_manager = event_manager or EventManager()
         self.trust_agent = trust_agent or TrustAgent()
         self.risk_agent = risk_agent or RiskAgent()
@@ -34,6 +36,7 @@ class TAIOSPipeline:
         self.decision_agent = decision_agent or DecisionAgent()
         self.governance_agent = governance_agent or GovernanceAgent()
         self.execution_agent = execution_agent or ExecutionAgent()
+        self.operational_semantic_model = operational_semantic_model or OperationalSemanticModel()
         self._entity_observations = defaultdict(int)
         self._processed_events = {}
 
@@ -86,6 +89,7 @@ class TAIOSPipeline:
                 trust_assessment=prior.trust_assessment,
                 risk_assessment=prior.risk_assessment,
                 authorization_assessment=prior.authorization_assessment,
+                operational_semantic_assessment=prior.operational_semantic_assessment,
                 authority_assessment=prior.authority_assessment,
                 decision_context=prior.decision_context,
                 planning_result=prior.planning_result,
@@ -105,6 +109,9 @@ class TAIOSPipeline:
             observation = runtime_observation(event)
             state_before, regime_transition = self._synchronize_regime(state, observation)
 
+            stage = 'operational_semantics'
+            semantics = self.operational_semantic_model.assess(observation)
+
             source = observation['source_id']
             self._entity_observations[source] += 1
             observation_number = self._entity_observations[source]
@@ -122,6 +129,7 @@ class TAIOSPipeline:
             base_context = build_decision_context(
                 observation, trust, risk, authorization,
                 permission_policy=self.authorization_engine.policy,
+                operational_semantic_assessment=semantics,
                 industrial_state=state_before)
             stage = 'authority_assessment'
             authority = self.authority_engine.assess(base_context)
@@ -131,6 +139,7 @@ class TAIOSPipeline:
                 permission_policy=self.authorization_engine.policy,
                 autonomous_authority_assessment=authority,
                 authority_policy=self.authority_engine.policy,
+                operational_semantic_assessment=semantics,
                 industrial_state=state_before)
             stage = 'planning'
             plan = self.planning_agent.plan(context)
@@ -147,6 +156,7 @@ class TAIOSPipeline:
                 event_reference=fingerprint(observation), observable_input=observation,
                 trust_assessment=trust, risk_assessment=risk,
                 authorization_assessment=authorization,
+                operational_semantic_assessment=semantics,
                 authority_assessment=authority, decision_context=context,
                 planning_result=plan, proposed_decision=proposal,
                 governance_decision=governance, execution_result=execution,

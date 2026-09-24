@@ -144,6 +144,7 @@ class DecisionContext(Record):
     permission_policy: object = None
     autonomous_authority_assessment: object = None
     authority_policy: object = None
+    operational_semantic_assessment: object = None
     state_version: int | None = None
     context_version: str = VERSION
 
@@ -194,6 +195,19 @@ class DecisionContext(Record):
         validity=self.capabilities.operational_validity
         if validity.operating_mode!=o['contextual_features'].get('operating_mode'): raise ValueError('Capability mode mismatch')
         if validity.check is not None and validity.check.requested_value!=o['requested_value']: raise ValueError('Capability value mismatch')
+        semantic = self.operational_semantic_assessment
+        if semantic is not None:
+            from core.operational_semantics import OperationalSemanticAssessment
+            if type(semantic) is not OperationalSemanticAssessment:
+                raise ValueError('Expected OperationalSemanticAssessment')
+            for name in ('source_id', 'target_id', 'target_type', 'operation'):
+                if getattr(semantic, name) != o[name]:
+                    raise ValueError(f'Operational semantic scope mismatch: {name}')
+            if semantic.observed_value != o['requested_value']:
+                raise ValueError('Operational semantic observed value mismatch')
+            if (semantic.operational_validity in ('WITHIN_LIMIT', 'OUTSIDE_LIMIT') and
+                    semantic.operational_validity != validity.status):
+                raise ValueError('Operational semantic validity mismatch')
         from core.autonomous_authority import AutonomousAuthorityAssessment, AuthorityPolicy
         authority = self.autonomous_authority_assessment
         if authority is None:
@@ -240,7 +254,7 @@ class DecisionContext(Record):
 
     @property
     def authority_input_reference(self):
-        return fingerprint({
+        values = {
             'observation': export(self.observation),
             'trust_assessment': self.trust_assessment.to_inference_dict(),
             'risk_assessment': self.risk_assessment.to_inference_dict(),
@@ -250,10 +264,16 @@ class DecisionContext(Record):
             'permission_policy': export(self.permission_policy),
             'state_version': self.state_version,
             'context_version': self.context_version,
-        })
+        }
+        if self.operational_semantic_assessment is not None:
+            values['operational_semantic_assessment'] = export(
+                self.operational_semantic_assessment)
+        return fingerprint(values)
 
     def to_dict(self):
         result = super().to_dict()
+        if self.operational_semantic_assessment is None:
+            result.pop('operational_semantic_assessment')
         result.update(authorization_status=self.authorization_status.value,
                       authorization_policy_version=self.authorization_policy_version,
                       authorization_basis='LEGACY_UNKNOWN' if self.authorization_assessment is None else 'ASSESSMENT',

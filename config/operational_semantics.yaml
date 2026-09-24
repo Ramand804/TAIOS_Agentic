@@ -1,0 +1,12 @@
+version: milestone6a-operational-semantics-v1
+operations:
+  set_speed:
+    target_types: [actuator]
+    value_type: numeric
+    required_observable_fields: [target_id, target_type, operation, requested_value, operating_mode]
+    constraint_source: environment.operational_limits.OperationalLimits
+  write_register:
+    target_types: [PLC]
+    value_type: register-specific
+    required_observable_fields: [target_id, target_type, operation, requested_value, register_address]
+    constraint_source: unresolved-register-schema

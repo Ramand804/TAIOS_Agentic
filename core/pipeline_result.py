@@ -35,6 +35,7 @@ class PipelineResult(Record):
     trust_assessment: object
     risk_assessment: object
     authorization_assessment: object
+    operational_semantic_assessment: object
     authority_assessment: object
     decision_context: object
     planning_result: object
@@ -55,6 +56,8 @@ class PipelineResult(Record):
             raise ValueError('regime_transition_applied must be bool')
         if self.decision_context.observation != self.observable_input:
             raise ValueError('Context observation is not the pipeline observation')
+        if self.decision_context.operational_semantic_assessment != self.operational_semantic_assessment:
+            raise ValueError('Context semantic assessment is not the pipeline assessment')
         if self.planning_result.context_fingerprint != self.decision_context.reference:
             raise ValueError('Plan/context chain mismatch')
         if self.proposed_decision.planning_reference != self.planning_result.reference:
@@ -90,6 +93,7 @@ class PipelineResult(Record):
             'trust_assessment': self.trust_assessment.to_inference_dict(),
             'risk_assessment': self.risk_assessment.to_inference_dict(),
             'authorization_assessment': self.authorization_assessment.to_dict(),
+            'operational_semantic_assessment': self.operational_semantic_assessment.to_dict(),
             'authority_assessment': self.authority_assessment.to_dict(),
             'decision_context': self.decision_context.to_dict(),
             'planning_result': self.planning_result.to_dict(),

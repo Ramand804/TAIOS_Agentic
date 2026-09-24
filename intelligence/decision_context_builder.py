@@ -14,6 +14,7 @@ from intelligence.risk_input_builder import build_risk_input
 def build_decision_context(safe_observation, trust_assessment, risk_assessment, authorization_assessment=None, *,
                            permission_policy=None,
                            autonomous_authority_assessment=None, authority_policy=None,
+                           operational_semantic_assessment=None,
                            industrial_state=None, operational_limits=None,
                            policy_context=None, capability_context=None):
     if type(trust_assessment) is not TrustAssessment or type(risk_assessment) is not RiskAssessment:
@@ -50,4 +51,5 @@ def build_decision_context(safe_observation, trust_assessment, risk_assessment, 
     return DecisionContext(observation=o,trust_assessment=replace(trust_assessment,audit=None),
         risk_assessment=replace(risk_assessment,audit=None),capabilities=expected,policy_context=policies,state_version=state_version,
         authorization_assessment=authorization_assessment,permission_policy=permission_policy,
-        autonomous_authority_assessment=autonomous_authority_assessment,authority_policy=authority_policy)
+        autonomous_authority_assessment=autonomous_authority_assessment,authority_policy=authority_policy,
+        operational_semantic_assessment=operational_semantic_assessment)

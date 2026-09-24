@@ -44,6 +44,8 @@ class PipelineResult(Record):
     proposed_decision: object
     governance_decision: object
     execution_result: object
+    observed_outcome: object
+    experience_reference: str
     input_state_reference: str
     state_before: IndustrialState
     state_after: IndustrialState
@@ -56,6 +58,8 @@ class PipelineResult(Record):
             raise ValueError('Pipeline states must be IndustrialState')
         if type(self.regime_transition_applied) is not bool:
             raise ValueError('regime_transition_applied must be bool')
+        if not isinstance(self.experience_reference, str) or not self.experience_reference:
+            raise ValueError('experience_reference must be nonempty text')
         if self.decision_context.observation != self.observable_input:
             raise ValueError('Context observation is not the pipeline observation')
         if self.decision_context.operational_semantic_assessment != self.operational_semantic_assessment:
@@ -72,6 +76,10 @@ class PipelineResult(Record):
             raise ValueError('Execution/governance chain mismatch')
         if self.execution_result.resulting_state.to_dict() != self.state_after.to_dict():
             raise ValueError('Execution result/state-after mismatch')
+        if self.observed_outcome.event_reference != self.event_reference:
+            raise ValueError('Outcome/event chain mismatch')
+        if self.observed_outcome.execution_reference != self.execution_result.reference:
+            raise ValueError('Outcome/execution chain mismatch')
 
     @property
     def pipeline_fingerprint(self):
@@ -84,6 +92,8 @@ class PipelineResult(Record):
             'proposal_reference': self.proposed_decision.reference,
             'governance_reference': self.governance_decision.reference,
             'execution_reference': self.execution_result.reference,
+            'outcome_reference': self.observed_outcome.reference,
+            'experience_reference': self.experience_reference,
             'input_state_reference': self.input_state_reference,
             'state_before_reference': fingerprint(self.state_before.to_dict()),
             'state_after_reference': fingerprint(self.state_after.to_dict()),
@@ -108,6 +118,8 @@ class PipelineResult(Record):
             'proposed_decision': self.proposed_decision.to_dict(),
             'governance_decision': self.governance_decision.to_dict(),
             'execution_result': self.execution_result.to_dict(),
+            'observed_outcome': self.observed_outcome.to_dict(),
+            'experience_reference': self.experience_reference,
             'input_state_reference': self.input_state_reference,
             'state_before': self.state_before.to_dict(),
             'state_after': self.state_after.to_dict(),
@@ -126,6 +138,8 @@ class EpisodeResult(Record):
     initial_state_reference: str
     final_state_reference: str
     structural_summary: object
+    experience_count: int
+    memory_fingerprint: str
     pipeline_version: str
 
     def __post_init__(self):
@@ -136,6 +150,12 @@ class EpisodeResult(Record):
         if not isinstance(self.structural_summary, Mapping):
             raise ValueError('structural_summary must be a mapping')
         object.__setattr__(self, 'structural_summary', freeze(self.structural_summary))
+        if type(self.experience_count) is not int or self.experience_count < 0:
+            raise ValueError('experience_count must be a nonnegative integer')
+        if self.experience_count != len(results):
+            raise ValueError('Every completed pipeline event requires one experience')
+        if not isinstance(self.memory_fingerprint, str) or not self.memory_fingerprint:
+            raise ValueError('memory_fingerprint must be nonempty text')
 
     @property
     def episode_fingerprint(self):
@@ -145,6 +165,8 @@ class EpisodeResult(Record):
             'ordered_pipeline_fingerprints': [r.pipeline_fingerprint for r in self.pipeline_results],
             'initial_state_reference': self.initial_state_reference,
             'final_state_reference': self.final_state_reference,
+            'experience_count': self.experience_count,
+            'memory_fingerprint': self.memory_fingerprint,
             'pipeline_version': self.pipeline_version,
         })
 
@@ -161,6 +183,8 @@ class EpisodeResult(Record):
             'initial_state_reference': self.initial_state_reference,
             'final_state_reference': self.final_state_reference,
             'structural_summary': export(self.structural_summary),
+            'experience_count': self.experience_count,
+            'memory_fingerprint': self.memory_fingerprint,
             'pipeline_version': self.pipeline_version,
             'episode_fingerprint': self.episode_fingerprint,
         }

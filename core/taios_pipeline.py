@@ -18,10 +18,13 @@ from intelligence.authorization_engine import AuthorizationEngine
 from intelligence.autonomous_authority_engine import AutonomousAuthorityEngine
 from intelligence.correlation_evidence_model import CorrelationEvidenceModel
 from intelligence.decision_context_builder import build_decision_context
+from intelligence.experience_builder import build_experience_record
 from intelligence.operational_semantic_model import OperationalSemanticModel
+from intelligence.outcome_observer import OutcomeObserver
 from intelligence.threat_evidence_model import ThreatEvidenceModel
+from memory.episodic_memory import EpisodicMemory
 
-PIPELINE_VERSION = 'milestone6d-pipeline-v1'
+PIPELINE_VERSION = 'milestone7a-pipeline-v1'
 
 
 class TAIOSPipeline:
@@ -29,7 +32,8 @@ class TAIOSPipeline:
                  authorization_engine=None, authority_engine=None, planning_agent=None,
                  decision_agent=None, governance_agent=None, execution_agent=None,
                  operational_semantic_model=None, threat_evidence_model=None,
-                 correlation_evidence_model=None):
+                 correlation_evidence_model=None, outcome_observer=None,
+                 episodic_memory=None):
         self.event_manager = event_manager or EventManager()
         self.trust_agent = trust_agent or TrustAgent()
         self.risk_agent = risk_agent or RiskAgent()
@@ -42,6 +46,8 @@ class TAIOSPipeline:
         self.operational_semantic_model = operational_semantic_model or OperationalSemanticModel()
         self.threat_evidence_model = threat_evidence_model or ThreatEvidenceModel()
         self.correlation_evidence_model = correlation_evidence_model or CorrelationEvidenceModel()
+        self.outcome_observer = outcome_observer or OutcomeObserver()
+        self.memory = episodic_memory or EpisodicMemory()
         self._entity_observations = defaultdict(int)
         self._processed_events = {}
 
@@ -50,6 +56,7 @@ class TAIOSPipeline:
         self.execution_agent._restore({})
         self.threat_evidence_model.reset()
         self.correlation_evidence_model.reset()
+        self.memory.reset()
         self._entity_observations.clear()
         self._processed_events.clear()
 
@@ -89,6 +96,9 @@ class TAIOSPipeline:
             replay = self.execution_agent.execute(
                 prior.decision_context, prior.planning_result, prior.proposed_decision,
                 prior.governance_decision, state)
+            replay_outcome = self.outcome_observer.observe(
+                dict(prior.observable_input), replay, state, replay.resulting_state,
+                event_reference=prior.event_reference)
             return PipelineResult(
                 event_id=event.event_id, sequence_number=event.sequence_number,
                 event_reference=prior.event_reference,
@@ -104,7 +114,9 @@ class TAIOSPipeline:
                 planning_result=prior.planning_result,
                 proposed_decision=prior.proposed_decision,
                 governance_decision=prior.governance_decision,
-                execution_result=replay, input_state_reference=input_state_reference,
+                execution_result=replay, observed_outcome=replay_outcome,
+                experience_reference=prior.experience_reference,
+                input_state_reference=input_state_reference,
                 state_before=clone_state(state),
                 state_after=clone_state(replay.resulting_state),
                 regime_transition_applied=False, pipeline_version=PIPELINE_VERSION)
@@ -113,6 +125,7 @@ class TAIOSPipeline:
         execution_checkpoint = self.execution_agent._checkpoint()
         threat_checkpoint = self.threat_evidence_model._checkpoint()
         correlation_checkpoint = self.correlation_evidence_model._checkpoint()
+        memory_checkpoint = self.memory._checkpoint()
         stage = 'event_validation'
         try:
             self.event_manager.validate((event,))
@@ -170,6 +183,19 @@ class TAIOSPipeline:
             execution = self.execution_agent.execute(
                 context, plan, proposal, governance, state_before)
             state_after = clone_state(execution.resulting_state)
+            stage = 'outcome_observation'
+            outcome = self.outcome_observer.observe(
+                observation, execution, state_before, state_after,
+                event_reference=event_reference)
+            stage = 'experience_commit'
+            experience = build_experience_record(
+                event_reference=event_reference, observation=observation,
+                semantics=semantics, threat=threat, correlation=correlation,
+                trust=trust, risk=risk, authorization=authorization,
+                authority=authority, planning=plan, proposal=proposal,
+                governance=governance, execution=execution, outcome=outcome,
+                state_before=state_before, state_after=state_after)
+            self.memory.append(experience)
             result = PipelineResult(
                 event_id=event.event_id, sequence_number=event.sequence_number,
                 event_reference=event_reference, observable_input=observation,
@@ -181,6 +207,7 @@ class TAIOSPipeline:
                 authority_assessment=authority, decision_context=context,
                 planning_result=plan, proposed_decision=proposal,
                 governance_decision=governance, execution_result=execution,
+                observed_outcome=outcome, experience_reference=experience.reference,
                 input_state_reference=input_state_reference,
                 state_before=clone_state(state_before), state_after=state_after,
                 regime_transition_applied=regime_transition,
@@ -195,6 +222,7 @@ class TAIOSPipeline:
             self.execution_agent._restore(execution_checkpoint)
             self.threat_evidence_model._restore(threat_checkpoint)
             self.correlation_evidence_model._restore(correlation_checkpoint)
+            self.memory._restore(memory_checkpoint)
             self._failure(stage, exc, event, state)
 
     def run_episode(self, events, initial_state=None, *, scenario_reference=None, seed=None):
@@ -222,6 +250,8 @@ class TAIOSPipeline:
             scenario_reference=scenario_reference, scenario_id=scenario_id, seed=seed,
             pipeline_results=tuple(results), initial_state_reference=initial_reference,
             final_state_reference=fingerprint(state.to_dict()),
+            experience_count=self.memory.count,
+            memory_fingerprint=self.memory.memory_fingerprint,
             structural_summary={
                 'total_events': len(results),
                 'proposals': dict(sorted(proposals.items())),
@@ -229,4 +259,5 @@ class TAIOSPipeline:
                 'execution_statuses': dict(sorted(execution.items())),
                 'state_mutations': sum(r.execution_result.mutation_applied for r in results),
                 'regime_transitions': sum(r.regime_transition_applied for r in results),
+                'experiences': self.memory.count,
             }, pipeline_version=PIPELINE_VERSION)

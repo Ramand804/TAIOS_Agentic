@@ -18,15 +18,16 @@ from intelligence.authorization_engine import AuthorizationEngine
 from intelligence.autonomous_authority_engine import AutonomousAuthorityEngine
 from intelligence.decision_context_builder import build_decision_context
 from intelligence.operational_semantic_model import OperationalSemanticModel
+from intelligence.threat_evidence_model import ThreatEvidenceModel
 
-PIPELINE_VERSION = 'milestone6a-pipeline-v1'
+PIPELINE_VERSION = 'milestone6b-pipeline-v1'
 
 
 class TAIOSPipeline:
     def __init__(self, *, event_manager=None, trust_agent=None, risk_agent=None,
                  authorization_engine=None, authority_engine=None, planning_agent=None,
                  decision_agent=None, governance_agent=None, execution_agent=None,
-                 operational_semantic_model=None):
+                 operational_semantic_model=None, threat_evidence_model=None):
         self.event_manager = event_manager or EventManager()
         self.trust_agent = trust_agent or TrustAgent()
         self.risk_agent = risk_agent or RiskAgent()
@@ -37,12 +38,14 @@ class TAIOSPipeline:
         self.governance_agent = governance_agent or GovernanceAgent()
         self.execution_agent = execution_agent or ExecutionAgent()
         self.operational_semantic_model = operational_semantic_model or OperationalSemanticModel()
+        self.threat_evidence_model = threat_evidence_model or ThreatEvidenceModel()
         self._entity_observations = defaultdict(int)
         self._processed_events = {}
 
     def reset(self):
         self.trust_agent.reset()
         self.execution_agent._restore({})
+        self.threat_evidence_model.reset()
         self._entity_observations.clear()
         self._processed_events.clear()
 
@@ -90,6 +93,7 @@ class TAIOSPipeline:
                 risk_assessment=prior.risk_assessment,
                 authorization_assessment=prior.authorization_assessment,
                 operational_semantic_assessment=prior.operational_semantic_assessment,
+                threat_assessment=prior.threat_assessment,
                 authority_assessment=prior.authority_assessment,
                 decision_context=prior.decision_context,
                 planning_result=prior.planning_result,
@@ -102,6 +106,7 @@ class TAIOSPipeline:
         trust_checkpoint = self.trust_agent._checkpoint()
         counts_checkpoint = dict(self._entity_observations)
         execution_checkpoint = self.execution_agent._checkpoint()
+        threat_checkpoint = self.threat_evidence_model._checkpoint()
         stage = 'event_validation'
         try:
             self.event_manager.validate((event,))
@@ -125,6 +130,9 @@ class TAIOSPipeline:
                 expected_trust_state_version=trust.trust_state_version)
             stage = 'authorization_assessment'
             authorization = self.authorization_engine.assess(observation)
+            stage = 'threat_evidence'
+            threat = self.threat_evidence_model.assess(
+                observation, semantics, authorization)
             stage = 'decision_context'
             base_context = build_decision_context(
                 observation, trust, risk, authorization,
@@ -157,6 +165,7 @@ class TAIOSPipeline:
                 trust_assessment=trust, risk_assessment=risk,
                 authorization_assessment=authorization,
                 operational_semantic_assessment=semantics,
+                threat_assessment=threat,
                 authority_assessment=authority, decision_context=context,
                 planning_result=plan, proposed_decision=proposal,
                 governance_decision=governance, execution_result=execution,
@@ -172,6 +181,7 @@ class TAIOSPipeline:
             self.trust_agent._restore(trust_checkpoint)
             self._entity_observations = defaultdict(int, counts_checkpoint)
             self.execution_agent._restore(execution_checkpoint)
+            self.threat_evidence_model._restore(threat_checkpoint)
             self._failure(stage, exc, event, state)
 
     def run_episode(self, events, initial_state=None, *, scenario_reference=None, seed=None):

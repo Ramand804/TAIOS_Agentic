@@ -36,6 +36,7 @@ class PipelineResult(Record):
     risk_assessment: object
     authorization_assessment: object
     operational_semantic_assessment: object
+    threat_assessment: object
     authority_assessment: object
     decision_context: object
     planning_result: object
@@ -74,6 +75,7 @@ class PipelineResult(Record):
         return fingerprint({
             'event_reference': self.event_reference,
             'context_reference': self.decision_context.reference,
+            'threat_assessment_reference': self.threat_assessment.reference,
             'planning_reference': self.planning_result.reference,
             'proposal_reference': self.proposed_decision.reference,
             'governance_reference': self.governance_decision.reference,
@@ -94,6 +96,7 @@ class PipelineResult(Record):
             'risk_assessment': self.risk_assessment.to_inference_dict(),
             'authorization_assessment': self.authorization_assessment.to_dict(),
             'operational_semantic_assessment': self.operational_semantic_assessment.to_dict(),
+            'threat_assessment': self.threat_assessment.to_dict(),
             'authority_assessment': self.authority_assessment.to_dict(),
             'decision_context': self.decision_context.to_dict(),
             'planning_result': self.planning_result.to_dict(),

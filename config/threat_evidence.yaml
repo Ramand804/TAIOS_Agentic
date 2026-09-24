@@ -1,0 +1,11 @@
+version: milestone6b-threat-evidence-v1
+calibration_status: PROVISIONAL_UNCALIBRATED
+aggregation: MAX_EFFECTIVE_DIRECT_STRENGTH
+evidence:
+  AUTHENTICATION_FAILURE: {strength: 0.9, confidence: 1.0, evidence_class: DIRECT}
+  AUTHORIZATION_FAILURE: {strength: 0.8, confidence: 1.0, evidence_class: DIRECT}
+  OPERATIONAL_CONSTRAINT_VIOLATION: {strength: 0.7, confidence: 1.0, evidence_class: DIRECT}
+  REPEATED_OPERATIONAL_VIOLATION: {strength: 0.6, confidence: 1.0, evidence_class: DIRECT}
+  AUTHORIZATION_UNRESOLVED: {strength: 0.0, confidence: 1.0, evidence_class: UNCERTAINTY}
+  SEMANTIC_UNDERSPECIFICATION: {strength: 0.0, confidence: 1.0, evidence_class: UNCERTAINTY}
+  UNSUPPORTED_SEMANTICS: {strength: 0.0, confidence: 1.0, evidence_class: UNCERTAINTY}

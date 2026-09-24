@@ -22,6 +22,19 @@ def _set(checks, reasons, check_id, status, reason):
     reasons[check_id] = reason
 
 
+def governance_authorization_reference(context, plan, proposal, action, payload, checks):
+    """Deterministic scope binding for an APPROVED governance artifact."""
+    return fingerprint({
+        'context_reference': context.reference,
+        'planning_reference': plan.reference,
+        'proposal_reference': proposal.reference,
+        'action': Action(action).value,
+        'payload': export(payload),
+        'checks': dict(checks),
+        'governance_policy_version': GOVERNANCE_POLICY_VERSION,
+    })
+
+
 class GovernanceAgent(BaseAgent):
     @staticmethod
     def _veto(context, proposal, checks, reasons, violations, reason):
@@ -269,15 +282,8 @@ class GovernanceAgent(BaseAgent):
                 governance_policy_version=GOVERNANCE_POLICY_VERSION,
             )
 
-        authorization_reference = fingerprint({
-            'context_reference': context.reference,
-            'planning_reference': plan.reference,
-            'proposal_reference': proposal.reference,
-            'action': action.value,
-            'payload': export(selected.payload),
-            'checks': checks,
-            'governance_policy_version': GOVERNANCE_POLICY_VERSION,
-        })
+        authorization_reference = governance_authorization_reference(
+            context, plan, proposal, action, selected.payload, checks)
         return GovernanceDecision(
             status=status,
             proposed_action=action,

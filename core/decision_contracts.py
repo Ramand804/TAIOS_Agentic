@@ -173,6 +173,8 @@ class ExecutionStatus(str,Enum):
     REJECTED='REJECTED'
     UNSUPPORTED='UNSUPPORTED'
     FAILED='FAILED'
+    STALE_STATE='STALE_STATE'
+    ALREADY_EXECUTED='ALREADY_EXECUTED'
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -185,6 +187,17 @@ class ExecutionResult(Record):
     reason: str
     governance_reference: str | None
     execution_policy_version: str
+    execution_id: str | None = None
+    target_id: str | None = None
+    operation: str | None = None
+    requested_value: object = None
+    applied_value: object = None
+    state_version_before: int | None = None
+    state_version_after: int | None = None
+    mutation_applied: bool = False
+    idempotent_replay: bool = False
+    authorization_reference: str | None = None
+    resulting_state: object = None
 
     def __post_init__(self):
         object.__setattr__(self,'requested_action',Action(self.requested_action))
@@ -199,3 +212,22 @@ class ExecutionResult(Record):
         if self.execution_status==ExecutionStatus.PENDING_APPROVAL and self.authorized_action not in (None,Action.REQUEST_APPROVAL):
             raise ValueError('Pending approval cannot execute the original action')
         for name in ('reason','execution_policy_version'): text_value(getattr(self,name),name)
+        if self.execution_id is not None:
+            for name in ('execution_id','target_id','operation'):
+                text_value(getattr(self,name),name)
+            for name in ('state_version_before','state_version_after'):
+                value=getattr(self,name)
+                if type(value) is not int or value<0: raise ValueError(f'{name} must be a nonnegative integer')
+            if type(self.mutation_applied) is not bool or type(self.idempotent_replay) is not bool:
+                raise ValueError('Execution flags must be boolean')
+            if self.authorization_reference is not None: text_value(self.authorization_reference,'authorization_reference')
+            from environment.industrial_environment import IndustrialState
+            if type(self.resulting_state) is not IndustrialState: raise ValueError('Expected resulting IndustrialState')
+            if self.resulting_state.state_version!=self.state_version_after:
+                raise ValueError('Resulting state version mismatch')
+            if self.execution_status==ExecutionStatus.SUCCEEDED:
+                if self.authorization_reference is None or self.idempotent_replay:
+                    raise ValueError('Successful execution requires governance authorization and is not replay')
+            if self.execution_status==ExecutionStatus.ALREADY_EXECUTED:
+                if not self.idempotent_replay or self.mutation_applied:
+                    raise ValueError('Already-executed result must be a non-mutating replay')

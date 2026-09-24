@@ -1,0 +1,13 @@
+version: milestone7d-behavioral-adaptation-v1
+calibration_status: PROVISIONAL_UNCALIBRATED
+default_mode: STATIC
+minimum_new_regime_observations: 2
+eligible_drift_statuses:
+  - KNOWN_REGIME_CHANGE
+required_semantic_status: SUPPORTED_VALID
+required_feedback_dimensions:
+  - EXECUTION
+  - STATE_EFFECT
+  - OPERATIONAL
+baseline_scope: SOURCE_TARGET_OPERATION_CONTEXT
+summary_method: COUNT_MEAN_MIN_MAX

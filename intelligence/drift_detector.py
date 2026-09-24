@@ -14,7 +14,7 @@ DRIFT_MODEL_VERSION = 'milestone7c-drift-detection-v1'
 
 
 class DriftDetector:
-    def __init__(self, path=None):
+    def __init__(self, path=None, *, behavioral_reference_store=None, adaptive=False):
         path = Path(path) if path is not None else (
             Path(__file__).resolve().parents[1] / 'config' / 'drift_detection.yaml')
         with path.open(encoding='utf-8') as stream:
@@ -39,6 +39,8 @@ class DriftDetector:
             raise ValueError('normalized_change_threshold must be in (0,1]')
         self.config = config
         self.configuration_fingerprint = fingerprint(config)
+        self.behavioral_reference_store = behavioral_reference_store
+        self.adaptive = bool(adaptive)
         self.reset()
 
     def reset(self):
@@ -122,17 +124,27 @@ class DriftDetector:
             reference_rows = self._baselines.get(
                 scope, history[-self.config['reference_window']:])
             reference_values = [row['value'] for row in reference_rows]
+            adaptive_reference = None
+            if self.adaptive and self.behavioral_reference_store is not None:
+                adaptive_reference = self.behavioral_reference_store.get(scope, context)
             constraints = semantic_assessment.known_constraints
             width = ((constraints['maximum'] - constraints['minimum'])
                      if constraints is not None else 1)
-            if reference_values:
+            if adaptive_reference is not None:
+                summary = dict(adaptive_reference.reference_summary)
+                reference_mean = summary['mean']
+                reference_summary = dict(summary)
+            elif reference_values:
                 reference_mean = sum(reference_values) / len(reference_values)
                 score = min(1.0, abs(value - reference_mean) / (width or 1))
             else:
                 reference_mean = None
-            reference_summary = {
-                'count': len(reference_values), 'mean': reference_mean,
-                'values': reference_values}
+            if adaptive_reference is not None:
+                score = min(1.0, abs(value - reference_mean) / (width or 1))
+            else:
+                reference_summary = {
+                    'count': len(reference_values), 'mean': reference_mean,
+                    'values': reference_values}
             recent_summary = {'count': 1, 'mean': value, 'values': [value]}
 
             if context_changed:

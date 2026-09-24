@@ -7,6 +7,8 @@ from agents.governance_agent import GovernanceAgent
 from agents.planning_agent import PlanningAgent
 from agents.risk_agent import RiskAgent
 from agents.trust_agent import TrustAgent
+from adaptation.behavioral_adapter import BehavioralAdapter
+from core.behavioral_reference import AdaptationMode
 from core.event_manager import EventManager
 from core.experiment import fingerprint
 from core.pipeline_result import (
@@ -27,7 +29,7 @@ from intelligence.threat_evidence_model import ThreatEvidenceModel
 from memory.episodic_memory import EpisodicMemory
 from memory.feedback_memory import FeedbackMemory
 
-PIPELINE_VERSION = 'milestone7c-pipeline-v1'
+PIPELINE_VERSION = 'milestone7d-pipeline-v1'
 
 
 class TAIOSPipeline:
@@ -37,7 +39,8 @@ class TAIOSPipeline:
                  operational_semantic_model=None, threat_evidence_model=None,
                  correlation_evidence_model=None, outcome_observer=None,
                  episodic_memory=None, feedback_interpreter=None,
-                 feedback_memory=None, drift_detector=None):
+                 feedback_memory=None, drift_detector=None,
+                 behavioral_adapter=None, adaptation_mode=AdaptationMode.STATIC):
         self.event_manager = event_manager or EventManager()
         self.trust_agent = trust_agent or TrustAgent()
         self.risk_agent = risk_agent or RiskAgent()
@@ -54,7 +57,10 @@ class TAIOSPipeline:
         self.memory = episodic_memory or EpisodicMemory()
         self.feedback_interpreter = feedback_interpreter or FeedbackInterpreter()
         self.feedback_memory = feedback_memory or FeedbackMemory()
-        self.drift_detector = drift_detector or DriftDetector()
+        self.behavioral_adapter = behavioral_adapter or BehavioralAdapter(mode=adaptation_mode)
+        self.drift_detector = drift_detector or DriftDetector(
+            behavioral_reference_store=self.behavioral_adapter.store,
+            adaptive=self.behavioral_adapter.mode == AdaptationMode.ADAPTIVE)
         self._entity_observations = defaultdict(int)
         self._processed_events = {}
 
@@ -66,6 +72,7 @@ class TAIOSPipeline:
         self.memory.reset()
         self.feedback_memory.reset()
         self.drift_detector.reset()
+        self.behavioral_adapter.reset()
         self._entity_observations.clear()
         self._processed_events.clear()
 
@@ -127,6 +134,9 @@ class TAIOSPipeline:
                 execution_result=replay, observed_outcome=replay_outcome,
                 experience_reference=prior.experience_reference,
                 feedback_reference=prior.feedback_reference,
+                adaptation_proposal=prior.adaptation_proposal,
+                adaptation_decision=prior.adaptation_decision,
+                behavioral_reference_used=prior.behavioral_reference_used,
                 input_state_reference=input_state_reference,
                 state_before=clone_state(state),
                 state_after=clone_state(replay.resulting_state),
@@ -139,6 +149,7 @@ class TAIOSPipeline:
         memory_checkpoint = self.memory._checkpoint()
         feedback_checkpoint = self.feedback_memory._checkpoint()
         drift_checkpoint = self.drift_detector._checkpoint()
+        adaptation_checkpoint = self.behavioral_adapter._checkpoint()
         stage = 'event_validation'
         try:
             self.event_manager.validate((event,))
@@ -150,6 +161,12 @@ class TAIOSPipeline:
             semantics = self.operational_semantic_model.assess(observation)
             stage = 'drift_detection'
             event_reference = fingerprint(observation)
+            drift_scope = (
+                f'{observation["source_id"]}|{observation["target_id"]}|{observation["operation"]}')
+            drift_context = {
+                'operating_mode': observation['contextual_features'].get('operating_mode'),
+                'production_state': observation['contextual_features'].get('production_state')}
+            reference_snapshot = self.behavioral_adapter.store.get(drift_scope, drift_context)
             drift = self.drift_detector.assess(
                 observation, semantics, event_reference=event_reference)
 
@@ -217,6 +234,9 @@ class TAIOSPipeline:
                 experience, outcome, execution)
             stage = 'feedback_commit'
             self.feedback_memory.append(feedback)
+            stage = 'behavioral_adaptation'
+            adaptation_proposal, adaptation_decision = self.behavioral_adapter.evaluate(
+                observation, semantics, drift, feedback)
             result = PipelineResult(
                 event_id=event.event_id, sequence_number=event.sequence_number,
                 event_reference=event_reference, observable_input=observation,
@@ -231,6 +251,10 @@ class TAIOSPipeline:
                 governance_decision=governance, execution_result=execution,
                 observed_outcome=outcome, experience_reference=experience.reference,
                 feedback_reference=feedback.reference,
+                adaptation_proposal=adaptation_proposal,
+                adaptation_decision=adaptation_decision,
+                behavioral_reference_used=(
+                    reference_snapshot.reference if reference_snapshot else None),
                 input_state_reference=input_state_reference,
                 state_before=clone_state(state_before), state_after=state_after,
                 regime_transition_applied=regime_transition,
@@ -248,6 +272,7 @@ class TAIOSPipeline:
             self.memory._restore(memory_checkpoint)
             self.feedback_memory._restore(feedback_checkpoint)
             self.drift_detector._restore(drift_checkpoint)
+            self.behavioral_adapter._restore(adaptation_checkpoint)
             self._failure(stage, exc, event, state)
 
     def run_episode(self, events, initial_state=None, *, scenario_reference=None, seed=None):

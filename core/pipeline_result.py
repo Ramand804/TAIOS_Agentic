@@ -53,6 +53,9 @@ class PipelineResult(Record):
     state_after: IndustrialState
     regime_transition_applied: bool
     pipeline_version: str
+    adaptation_proposal: object | None = None
+    adaptation_decision: object | None = None
+    behavioral_reference_used: str | None = None
 
     def __post_init__(self):
         object.__setattr__(self, 'observable_input', freeze(self.observable_input))
@@ -70,6 +73,15 @@ class PipelineResult(Record):
             raise ValueError('Context semantic assessment is not the pipeline assessment')
         if self.drift_assessment.event_reference != self.event_reference:
             raise ValueError('Drift assessment/event chain mismatch')
+        if (self.adaptation_proposal is None) != (self.adaptation_decision is None):
+            raise ValueError('Adaptation proposal and decision must be supplied together')
+        if self.adaptation_proposal is not None:
+            if self.adaptation_proposal.trigger_drift_reference != self.drift_assessment.reference:
+                raise ValueError('Adaptation/drift chain mismatch')
+            if self.adaptation_decision.proposal_reference != self.adaptation_proposal.reference:
+                raise ValueError('Adaptation decision/proposal chain mismatch')
+        if self.behavioral_reference_used is not None and not self.behavioral_reference_used:
+            raise ValueError('behavioral_reference_used must be nonempty text')
         if self.correlation_assessment.current_event_reference != self.event_reference:
             raise ValueError('Correlation assessment/event chain mismatch')
         if self.planning_result.context_fingerprint != self.decision_context.reference:
@@ -102,6 +114,11 @@ class PipelineResult(Record):
             'outcome_reference': self.observed_outcome.reference,
             'experience_reference': self.experience_reference,
             'feedback_reference': self.feedback_reference,
+            'adaptation_proposal_reference': (
+                self.adaptation_proposal.reference if self.adaptation_proposal else None),
+            'adaptation_decision_reference': (
+                self.adaptation_decision.reference if self.adaptation_decision else None),
+            'behavioral_reference_used': self.behavioral_reference_used,
             'input_state_reference': self.input_state_reference,
             'state_before_reference': fingerprint(self.state_before.to_dict()),
             'state_after_reference': fingerprint(self.state_after.to_dict()),
@@ -130,6 +147,11 @@ class PipelineResult(Record):
             'observed_outcome': self.observed_outcome.to_dict(),
             'experience_reference': self.experience_reference,
             'feedback_reference': self.feedback_reference,
+            'adaptation_proposal': (
+                self.adaptation_proposal.to_dict() if self.adaptation_proposal else None),
+            'adaptation_decision': (
+                self.adaptation_decision.to_dict() if self.adaptation_decision else None),
+            'behavioral_reference_used': self.behavioral_reference_used,
             'input_state_reference': self.input_state_reference,
             'state_before': self.state_before.to_dict(),
             'state_after': self.state_after.to_dict(),

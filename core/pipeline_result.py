@@ -46,6 +46,7 @@ class PipelineResult(Record):
     execution_result: object
     observed_outcome: object
     experience_reference: str
+    feedback_reference: str
     input_state_reference: str
     state_before: IndustrialState
     state_after: IndustrialState
@@ -60,6 +61,8 @@ class PipelineResult(Record):
             raise ValueError('regime_transition_applied must be bool')
         if not isinstance(self.experience_reference, str) or not self.experience_reference:
             raise ValueError('experience_reference must be nonempty text')
+        if not isinstance(self.feedback_reference, str) or not self.feedback_reference:
+            raise ValueError('feedback_reference must be nonempty text')
         if self.decision_context.observation != self.observable_input:
             raise ValueError('Context observation is not the pipeline observation')
         if self.decision_context.operational_semantic_assessment != self.operational_semantic_assessment:
@@ -94,6 +97,7 @@ class PipelineResult(Record):
             'execution_reference': self.execution_result.reference,
             'outcome_reference': self.observed_outcome.reference,
             'experience_reference': self.experience_reference,
+            'feedback_reference': self.feedback_reference,
             'input_state_reference': self.input_state_reference,
             'state_before_reference': fingerprint(self.state_before.to_dict()),
             'state_after_reference': fingerprint(self.state_after.to_dict()),
@@ -120,6 +124,7 @@ class PipelineResult(Record):
             'execution_result': self.execution_result.to_dict(),
             'observed_outcome': self.observed_outcome.to_dict(),
             'experience_reference': self.experience_reference,
+            'feedback_reference': self.feedback_reference,
             'input_state_reference': self.input_state_reference,
             'state_before': self.state_before.to_dict(),
             'state_after': self.state_after.to_dict(),
@@ -140,6 +145,8 @@ class EpisodeResult(Record):
     structural_summary: object
     experience_count: int
     memory_fingerprint: str
+    feedback_count: int
+    feedback_memory_fingerprint: str
     pipeline_version: str
 
     def __post_init__(self):
@@ -156,6 +163,12 @@ class EpisodeResult(Record):
             raise ValueError('Every completed pipeline event requires one experience')
         if not isinstance(self.memory_fingerprint, str) or not self.memory_fingerprint:
             raise ValueError('memory_fingerprint must be nonempty text')
+        if type(self.feedback_count) is not int or self.feedback_count < 0:
+            raise ValueError('feedback_count must be a nonnegative integer')
+        if self.feedback_count != len(results):
+            raise ValueError('Every completed pipeline event requires one feedback assessment')
+        if not isinstance(self.feedback_memory_fingerprint, str) or not self.feedback_memory_fingerprint:
+            raise ValueError('feedback_memory_fingerprint must be nonempty text')
 
     @property
     def episode_fingerprint(self):
@@ -167,6 +180,8 @@ class EpisodeResult(Record):
             'final_state_reference': self.final_state_reference,
             'experience_count': self.experience_count,
             'memory_fingerprint': self.memory_fingerprint,
+            'feedback_count': self.feedback_count,
+            'feedback_memory_fingerprint': self.feedback_memory_fingerprint,
             'pipeline_version': self.pipeline_version,
         })
 
@@ -185,6 +200,8 @@ class EpisodeResult(Record):
             'structural_summary': export(self.structural_summary),
             'experience_count': self.experience_count,
             'memory_fingerprint': self.memory_fingerprint,
+            'feedback_count': self.feedback_count,
+            'feedback_memory_fingerprint': self.feedback_memory_fingerprint,
             'pipeline_version': self.pipeline_version,
             'episode_fingerprint': self.episode_fingerprint,
         }

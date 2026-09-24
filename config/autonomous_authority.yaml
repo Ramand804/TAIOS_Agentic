@@ -1,0 +1,74 @@
+policy_version: day4c7-authority-v1
+rules:
+  - rule_id: AUTH-ROUTINE-ALLOW
+    action: ALLOW
+    condition: ROUTINE_AUTHORIZED_VALID
+    status: PERMITTED
+    rationale: >-
+      SIMULATION POLICY ASSUMPTION: an explicitly authorized request with known
+      current-mode conformance and positive direct identity, device and behavior
+      evidence may be considered as a routine permissive response. Governance
+      and execution authorization remain separate.
+  - rule_id: AUTH-ROUTINE-MONITOR
+    action: MONITOR
+    condition: ROUTINE_AUTHORIZED_VALID
+    status: PERMITTED
+    rationale: >-
+      SIMULATION POLICY ASSUMPTION: the same routine request may be considered
+      with logical monitoring. No monitoring service or execution capability is
+      claimed.
+  - rule_id: AUTH-NONROUTINE-ALLOW-RESTRICTION
+    action: ALLOW
+    condition: NOT_ROUTINE_AUTHORIZED_VALID
+    status: NOT_PERMITTED
+    rationale: >-
+      Permissive autonomy is prohibited when authorization, operation semantics,
+      current-mode conformance or required direct evidence is unresolved.
+  - rule_id: AUTH-NONROUTINE-MONITOR-RESTRICTION
+    action: MONITOR
+    condition: NOT_ROUTINE_AUTHORIZED_VALID
+    status: NOT_PERMITTED
+    rationale: >-
+      Monitoring cannot substitute for permission or known operational validity.
+  - rule_id: AUTH-VIOLATION-LIMIT
+    action: LIMIT
+    condition: AUTHORIZED_OUTSIDE_LIMIT
+    status: PERMITTED
+    rationale: >-
+      SIMULATION POLICY ASSUMPTION: an authorized request outside a known
+      current-mode range may be considered for a reviewed constrained response;
+      no replacement value or safe transformation is granted.
+  - rule_id: AUTH-NO-VIOLATION-LIMIT-RESTRICTION
+    action: LIMIT
+    condition: WITHIN_LIMIT
+    status: NOT_PERMITTED
+    rationale: >-
+      No range violation exists to justify a constrained alternative.
+  - rule_id: AUTH-UNCERTAINTY-REVIEW
+    action: REQUEST_APPROVAL
+    condition: UNRESOLVED_OR_OUTSIDE
+    status: PERMITTED
+    rationale: >-
+      SIMULATION POLICY ASSUMPTION: unresolved permission or operation semantics,
+      or a known range violation, may be routed to logical human review. This does
+      not establish a physical hold or external approval service.
+  - rule_id: AUTH-ROUTINE-REVIEW-RESTRICTION
+    action: REQUEST_APPROVAL
+    condition: ROUTINE_AUTHORIZED_VALID
+    status: NOT_PERMITTED
+    rationale: >-
+      Routine requests with resolved permission and conformance have no observed
+      authority uncertainty requiring human review under this simulation policy.
+  - rule_id: AUTH-BLOCK-SAFETY-RESTRICTION
+    action: BLOCK
+    condition: ALWAYS
+    status: NOT_PERMITTED
+    rationale: >-
+      Autonomous denial lacks a reviewed denial-impact and process-safety envelope.
+  - rule_id: AUTH-ISOLATE-SAFETY-RESTRICTION
+    action: ISOLATE
+    condition: ALWAYS
+    status: NOT_PERMITTED
+    rationale: >-
+      Autonomous isolation lacks technical capability, dependency-impact review
+      and an explicit isolation grant.

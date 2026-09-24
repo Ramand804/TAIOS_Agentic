@@ -82,6 +82,8 @@ class ProposedDecision(Record):
     alternatives_considered: tuple[str,...]
     context_reference: str
     decision_policy_version: str
+    planning_reference: str | None = None
+    planning_policy_version: str | None = None
 
     def __post_init__(self):
         candidates=tuple(self.candidate_actions)
@@ -96,6 +98,10 @@ class ProposedDecision(Record):
                 raise ValueError('Selected candidate must belong to candidate set')
         for name in ('primary_reason','trust_basis','risk_basis','context_reference','decision_policy_version'):
             text_value(getattr(self,name),name)
+        if (self.planning_reference is None) != (self.planning_policy_version is None):
+            raise ValueError('Planning reference and version must be supplied together')
+        for name in ('planning_reference','planning_policy_version'):
+            if getattr(self,name) is not None: text_value(getattr(self,name),name)
         for name in ('evidence_summary','uncertainty','policy_basis','alternatives_considered'):
             object.__setattr__(self,name,texts(getattr(self,name)))
 

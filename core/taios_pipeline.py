@@ -18,6 +18,7 @@ from intelligence.authorization_engine import AuthorizationEngine
 from intelligence.autonomous_authority_engine import AutonomousAuthorityEngine
 from intelligence.correlation_evidence_model import CorrelationEvidenceModel
 from intelligence.decision_context_builder import build_decision_context
+from intelligence.drift_detector import DriftDetector
 from intelligence.experience_builder import build_experience_record
 from intelligence.feedback_interpreter import FeedbackInterpreter
 from intelligence.operational_semantic_model import OperationalSemanticModel
@@ -26,7 +27,7 @@ from intelligence.threat_evidence_model import ThreatEvidenceModel
 from memory.episodic_memory import EpisodicMemory
 from memory.feedback_memory import FeedbackMemory
 
-PIPELINE_VERSION = 'milestone7b-pipeline-v1'
+PIPELINE_VERSION = 'milestone7c-pipeline-v1'
 
 
 class TAIOSPipeline:
@@ -36,7 +37,7 @@ class TAIOSPipeline:
                  operational_semantic_model=None, threat_evidence_model=None,
                  correlation_evidence_model=None, outcome_observer=None,
                  episodic_memory=None, feedback_interpreter=None,
-                 feedback_memory=None):
+                 feedback_memory=None, drift_detector=None):
         self.event_manager = event_manager or EventManager()
         self.trust_agent = trust_agent or TrustAgent()
         self.risk_agent = risk_agent or RiskAgent()
@@ -53,6 +54,7 @@ class TAIOSPipeline:
         self.memory = episodic_memory or EpisodicMemory()
         self.feedback_interpreter = feedback_interpreter or FeedbackInterpreter()
         self.feedback_memory = feedback_memory or FeedbackMemory()
+        self.drift_detector = drift_detector or DriftDetector()
         self._entity_observations = defaultdict(int)
         self._processed_events = {}
 
@@ -63,6 +65,7 @@ class TAIOSPipeline:
         self.correlation_evidence_model.reset()
         self.memory.reset()
         self.feedback_memory.reset()
+        self.drift_detector.reset()
         self._entity_observations.clear()
         self._processed_events.clear()
 
@@ -113,6 +116,7 @@ class TAIOSPipeline:
                 risk_assessment=prior.risk_assessment,
                 authorization_assessment=prior.authorization_assessment,
                 operational_semantic_assessment=prior.operational_semantic_assessment,
+                drift_assessment=prior.drift_assessment,
                 threat_assessment=prior.threat_assessment,
                 correlation_assessment=prior.correlation_assessment,
                 authority_assessment=prior.authority_assessment,
@@ -134,6 +138,7 @@ class TAIOSPipeline:
         correlation_checkpoint = self.correlation_evidence_model._checkpoint()
         memory_checkpoint = self.memory._checkpoint()
         feedback_checkpoint = self.feedback_memory._checkpoint()
+        drift_checkpoint = self.drift_detector._checkpoint()
         stage = 'event_validation'
         try:
             self.event_manager.validate((event,))
@@ -143,6 +148,10 @@ class TAIOSPipeline:
 
             stage = 'operational_semantics'
             semantics = self.operational_semantic_model.assess(observation)
+            stage = 'drift_detection'
+            event_reference = fingerprint(observation)
+            drift = self.drift_detector.assess(
+                observation, semantics, event_reference=event_reference)
 
             stage = 'authorization_assessment'
             authorization = self.authorization_engine.assess(observation)
@@ -150,7 +159,6 @@ class TAIOSPipeline:
             threat = self.threat_evidence_model.assess(
                 observation, semantics, authorization)
             stage = 'correlation_evidence'
-            event_reference = fingerprint(observation)
             correlation = self.correlation_evidence_model.assess(
                 observation, threat, current_event_reference=event_reference)
             source = observation['source_id']
@@ -215,6 +223,7 @@ class TAIOSPipeline:
                 trust_assessment=trust, risk_assessment=risk,
                 authorization_assessment=authorization,
                 operational_semantic_assessment=semantics,
+                drift_assessment=drift,
                 threat_assessment=threat,
                 correlation_assessment=correlation,
                 authority_assessment=authority, decision_context=context,
@@ -238,6 +247,7 @@ class TAIOSPipeline:
             self.correlation_evidence_model._restore(correlation_checkpoint)
             self.memory._restore(memory_checkpoint)
             self.feedback_memory._restore(feedback_checkpoint)
+            self.drift_detector._restore(drift_checkpoint)
             self._failure(stage, exc, event, state)
 
     def run_episode(self, events, initial_state=None, *, scenario_reference=None, seed=None):

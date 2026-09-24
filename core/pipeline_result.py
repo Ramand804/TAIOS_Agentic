@@ -36,6 +36,7 @@ class PipelineResult(Record):
     risk_assessment: object
     authorization_assessment: object
     operational_semantic_assessment: object
+    drift_assessment: object
     threat_assessment: object
     correlation_assessment: object
     authority_assessment: object
@@ -67,6 +68,8 @@ class PipelineResult(Record):
             raise ValueError('Context observation is not the pipeline observation')
         if self.decision_context.operational_semantic_assessment != self.operational_semantic_assessment:
             raise ValueError('Context semantic assessment is not the pipeline assessment')
+        if self.drift_assessment.event_reference != self.event_reference:
+            raise ValueError('Drift assessment/event chain mismatch')
         if self.correlation_assessment.current_event_reference != self.event_reference:
             raise ValueError('Correlation assessment/event chain mismatch')
         if self.planning_result.context_fingerprint != self.decision_context.reference:
@@ -90,6 +93,7 @@ class PipelineResult(Record):
             'event_reference': self.event_reference,
             'context_reference': self.decision_context.reference,
             'threat_assessment_reference': self.threat_assessment.reference,
+            'drift_assessment_reference': self.drift_assessment.reference,
             'correlation_assessment_reference': self.correlation_assessment.reference,
             'planning_reference': self.planning_result.reference,
             'proposal_reference': self.proposed_decision.reference,
@@ -114,6 +118,7 @@ class PipelineResult(Record):
             'risk_assessment': self.risk_assessment.to_inference_dict(),
             'authorization_assessment': self.authorization_assessment.to_dict(),
             'operational_semantic_assessment': self.operational_semantic_assessment.to_dict(),
+            'drift_assessment': self.drift_assessment.to_dict(),
             'threat_assessment': self.threat_assessment.to_dict(),
             'correlation_assessment': self.correlation_assessment.to_dict(),
             'authority_assessment': self.authority_assessment.to_dict(),

@@ -1,0 +1,8 @@
+version: milestone7c-drift-detection-v1
+calibration_status: PROVISIONAL_UNCALIBRATED
+scope: SOURCE_TARGET_OPERATION
+minimum_history: 3
+reference_window: 3
+recent_window: 1
+persistence_requirement: 2
+normalized_change_threshold: 0.30

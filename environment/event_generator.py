@@ -113,6 +113,12 @@ class EventGenerator:
             return self._concept_drift(n)
         if scenario_id == "S6":
             return self._coordinated_attack(n)
+        if scenario_id == "S7":
+            return self._stealthy_valid_compromise(n)
+        if scenario_id == "S8":
+            return self._legitimate_valid_shift(n)
+        if scenario_id == "S9":
+            return self._recovery_after_suspicion(n)
         raise ValueError(f"Unknown scenario: {scenario_id}")
 
     def _compromised_device(self, n):
@@ -235,4 +241,51 @@ class EventGenerator:
                                          "coordination_group":"CG-01"},
                     ground_truth="MALICIOUS", expected_safe_action="ISOLATE",
                     scenario_id="S6"))
+        return out
+
+    def _valid_speed_event(self, source, target, value, scenario_id, expected_action, *, mode="NORMAL"):
+        return self._event(
+            source_id=source.asset_id, source_type=source.asset_type,
+            target_id=target.asset_id, target_type=target.asset_type,
+            identity_id="operator-12", event_type="control_command", operation="set_speed",
+            requested_value=value, network_zone=source.network_zone, protocol=source.protocol,
+            authentication_status=True, asset_criticality=target.criticality,
+            # Only allowlisted production/mode context can reach inference.
+            contextual_features={"production_state": "ACTIVE", "operating_mode": mode},
+            ground_truth="SUSPICIOUS" if expected_action == "REQUEST_APPROVAL" else "BENIGN",
+            expected_safe_action=expected_action, scenario_id=scenario_id)
+
+    def _stealthy_valid_compromise(self, n):
+        source, target, out = get_asset("PLC-07"), get_asset("MOTOR-02"), []
+        transition = (self._manifest.transition_sequence or n + 1) - 1
+        for i in range(n):
+            suspicious = i >= transition
+            value = self.rng.randint(72, 78) if suspicious else self.rng.randint(35, 45)
+            out.append(self._valid_speed_event(source, target, value, "S7",
+                                               "REQUEST_APPROVAL" if suspicious else "ALLOW"))
+        return out
+
+    def _legitimate_valid_shift(self, n):
+        source, target, out = get_asset("PLC-01"), get_asset("MOTOR-02"), []
+        transition = (self._manifest.transition_sequence or n + 1) - 1
+        for i in range(n):
+            changed = i >= transition
+            if i == transition:
+                self._industrial_state.set_operating_mode(OperatingMode.HIGH_OUTPUT)
+            out.append(self._valid_speed_event(source, target,
+                                               self.rng.randint(72, 88) if changed else self.rng.randint(35, 45),
+                                               "S8", "ALLOW", mode="HIGH_OUTPUT" if changed else "NORMAL"))
+        return out
+
+    def _recovery_after_suspicion(self, n):
+        source, target, out = get_asset("PLC-07"), get_asset("MOTOR-02"), []
+        transitions = self._manifest.transition_sequence or (n + 1, n + 1)
+        if type(transitions) is int:
+            transitions = (transitions, n + 1)
+        suspicious_start, recovery_start = transitions
+        for i in range(n):
+            suspicious = suspicious_start - 1 <= i < recovery_start - 1
+            value = self.rng.randint(72, 78) if suspicious else self.rng.randint(35, 45)
+            out.append(self._valid_speed_event(source, target, value, "S9",
+                                               "REQUEST_APPROVAL" if suspicious else "ALLOW"))
         return out

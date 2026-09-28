@@ -4,7 +4,7 @@ from core.experiment import DEFAULT_SIMULATION_START
 
 def main():
     p = argparse.ArgumentParser(description="TAIOS deterministic scenario runner")
-    p.add_argument("--scenario", default="S1", choices=[f"S{i}" for i in range(1,7)])
+    p.add_argument("--scenario", default="S1", choices=[f"S{i}" for i in range(1,10)])
     p.add_argument("--events", type=int, default=20)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--log-dir", default="logs")

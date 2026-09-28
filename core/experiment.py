@@ -31,7 +31,7 @@ class ExperimentRun:
     experiment_id: str = field(init=False)
 
     def __post_init__(self):
-        if self.scenario_id not in {f"S{i}" for i in range(1, 7)}:
+        if self.scenario_id not in {f"S{i}" for i in range(1, 10)}:
             raise ValueError(f"Unknown scenario: {self.scenario_id}")
         if type(self.seed) is not int:
             raise ValueError("seed must be an integer")

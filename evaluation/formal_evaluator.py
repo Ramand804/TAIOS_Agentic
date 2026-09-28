@@ -198,6 +198,10 @@ class TAIOSEvaluator:
 
     @staticmethod
     def _temporal(scenario, rows, transition):
+        # Three-phase evaluator scenarios retain all phase boundaries in the
+        # manifest; this existing pre/post summary uses the first boundary.
+        if isinstance(transition, (tuple, list)):
+            transition = transition[0] if transition else None
         table = [{
             'sequence_number': row['sequence_number'],
             'ground_truth': row['ground_truth'], 'expected_action': row['expected_action'],

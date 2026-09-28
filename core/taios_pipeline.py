@@ -20,6 +20,7 @@ from intelligence.authorization_engine import AuthorizationEngine
 from intelligence.autonomous_authority_engine import AutonomousAuthorityEngine
 from intelligence.correlation_evidence_model import CorrelationEvidenceModel
 from intelligence.decision_context_builder import build_decision_context
+from intelligence.decision_assurance import DecisionAssuranceGate
 from intelligence.drift_detector import DriftDetector
 from intelligence.experience_builder import build_experience_record
 from intelligence.feedback_interpreter import FeedbackInterpreter
@@ -40,7 +41,8 @@ class TAIOSPipeline:
                  correlation_evidence_model=None, outcome_observer=None,
                  episodic_memory=None, feedback_interpreter=None,
                  feedback_memory=None, drift_detector=None,
-                 behavioral_adapter=None, adaptation_mode=AdaptationMode.STATIC):
+                 behavioral_adapter=None, adaptation_mode=AdaptationMode.STATIC,
+                 assurance_gate=None, assurance_enabled=True):
         self.event_manager = event_manager or EventManager()
         self.trust_agent = trust_agent or TrustAgent()
         self.risk_agent = risk_agent or RiskAgent()
@@ -58,6 +60,7 @@ class TAIOSPipeline:
         self.feedback_interpreter = feedback_interpreter or FeedbackInterpreter()
         self.feedback_memory = feedback_memory or FeedbackMemory()
         self.behavioral_adapter = behavioral_adapter or BehavioralAdapter(mode=adaptation_mode)
+        self.assurance_gate = assurance_gate or DecisionAssuranceGate(enabled=assurance_enabled)
         self.drift_detector = drift_detector or DriftDetector(
             behavioral_reference_store=self.behavioral_adapter.store,
             adaptive=self.behavioral_adapter.mode == AdaptationMode.ADAPTIVE)
@@ -137,6 +140,8 @@ class TAIOSPipeline:
                 adaptation_proposal=prior.adaptation_proposal,
                 adaptation_decision=prior.adaptation_decision,
                 behavioral_reference_used=prior.behavioral_reference_used,
+                assurance_assessment=prior.assurance_assessment,
+                assured_authority_assessment=prior.assured_authority_assessment,
                 input_state_reference=input_state_reference,
                 state_before=clone_state(state),
                 state_after=clone_state(replay.resulting_state),
@@ -198,11 +203,17 @@ class TAIOSPipeline:
                 industrial_state=state_before)
             stage = 'authority_assessment'
             authority = self.authority_engine.assess(base_context)
+            stage = 'decision_assurance'
+            assurance = self.assurance_gate.assess(
+                event_reference=event_reference, authority=authority, trust=trust,
+                threat=threat, risk=risk, drift=drift, correlation=correlation,
+                semantics=semantics, authorization=authorization)
+            assured_authority = self.assurance_gate.apply(authority, assurance)
             stage = 'final_decision_context'
             context = build_decision_context(
                 observation, trust, risk, authorization,
                 permission_policy=self.authorization_engine.policy,
-                autonomous_authority_assessment=authority,
+                autonomous_authority_assessment=assured_authority,
                 authority_policy=self.authority_engine.policy,
                 operational_semantic_assessment=semantics,
                 industrial_state=state_before)
@@ -255,6 +266,8 @@ class TAIOSPipeline:
                 adaptation_decision=adaptation_decision,
                 behavioral_reference_used=(
                     reference_snapshot.reference if reference_snapshot else None),
+                assurance_assessment=assurance,
+                assured_authority_assessment=assured_authority,
                 input_state_reference=input_state_reference,
                 state_before=clone_state(state_before), state_after=state_after,
                 regime_transition_applied=regime_transition,

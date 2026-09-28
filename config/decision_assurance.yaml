@@ -1,0 +1,9 @@
+version: milestone8b-decision-assurance-v1
+enabled: true
+direct_threat_review: true
+persistent_unexplained_drift_review: true
+trust_corroboration_required: true
+risk_context_enabled: true
+correlation_direct_review: true
+known_regime_change_exemption: true
+calibration_status: PROVISIONAL_UNCALIBRATED

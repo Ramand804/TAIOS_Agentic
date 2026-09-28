@@ -45,7 +45,7 @@ def create_pipeline(configuration):
     if configuration == ExperimentalConfiguration.RULE_BASED:
         return TAIOSPipeline(
             planning_agent=RuleBasedPlanningAgent(), decision_agent=RuleBasedDecisionAgent(),
-            adaptation_mode=AdaptationMode.STATIC)
+            adaptation_mode=AdaptationMode.STATIC, assurance_enabled=False)
     if configuration == ExperimentalConfiguration.TAIOS_ADAPTIVE:
         return TAIOSPipeline(adaptation_mode=AdaptationMode.ADAPTIVE)
     if configuration == ExperimentalConfiguration.TAIOS_NO_TRUST:

@@ -56,6 +56,8 @@ class PipelineResult(Record):
     adaptation_proposal: object | None = None
     adaptation_decision: object | None = None
     behavioral_reference_used: str | None = None
+    assurance_assessment: object | None = None
+    assured_authority_assessment: object | None = None
 
     def __post_init__(self):
         object.__setattr__(self, 'observable_input', freeze(self.observable_input))
@@ -82,6 +84,15 @@ class PipelineResult(Record):
                 raise ValueError('Adaptation decision/proposal chain mismatch')
         if self.behavioral_reference_used is not None and not self.behavioral_reference_used:
             raise ValueError('behavioral_reference_used must be nonempty text')
+        if (self.assurance_assessment is None) != (self.assured_authority_assessment is None):
+            raise ValueError('Assurance and assured authority must be supplied together')
+        if self.assurance_assessment is not None:
+            if self.assurance_assessment.event_reference != self.event_reference:
+                raise ValueError('Assurance/event chain mismatch')
+            if self.assurance_assessment.authority_reference != self.authority_assessment.reference:
+                raise ValueError('Assurance/existing-authority chain mismatch')
+            if self.decision_context.autonomous_authority_assessment != self.assured_authority_assessment:
+                raise ValueError('Planning context does not use assured authority')
         if self.correlation_assessment.current_event_reference != self.event_reference:
             raise ValueError('Correlation assessment/event chain mismatch')
         if self.planning_result.context_fingerprint != self.decision_context.reference:
@@ -119,6 +130,11 @@ class PipelineResult(Record):
             'adaptation_decision_reference': (
                 self.adaptation_decision.reference if self.adaptation_decision else None),
             'behavioral_reference_used': self.behavioral_reference_used,
+            'assurance_assessment_reference': (
+                self.assurance_assessment.reference if self.assurance_assessment else None),
+            'assured_authority_reference': (
+                self.assured_authority_assessment.reference
+                if self.assured_authority_assessment else None),
             'input_state_reference': self.input_state_reference,
             'state_before_reference': fingerprint(self.state_before.to_dict()),
             'state_after_reference': fingerprint(self.state_after.to_dict()),
@@ -152,6 +168,11 @@ class PipelineResult(Record):
             'adaptation_decision': (
                 self.adaptation_decision.to_dict() if self.adaptation_decision else None),
             'behavioral_reference_used': self.behavioral_reference_used,
+            'assurance_assessment': (
+                self.assurance_assessment.to_dict() if self.assurance_assessment else None),
+            'assured_authority_assessment': (
+                self.assured_authority_assessment.to_dict()
+                if self.assured_authority_assessment else None),
             'input_state_reference': self.input_state_reference,
             'state_before': self.state_before.to_dict(),
             'state_after': self.state_after.to_dict(),

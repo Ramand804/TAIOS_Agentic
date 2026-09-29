@@ -1,0 +1,42 @@
+{
+  "FULL_ADAPTIVE": {
+    "differs_from_full": [
+      "governed adaptation enabled"
+    ],
+    "fingerprint": "981fecab73cf47c009420d09f9851785b8d0fe79465d971062d99118a66266a5"
+  },
+  "FULL_STATIC": {
+    "differs_from_full": [],
+    "fingerprint": "beb7282dcaddd810dcfa427e9f023b4f2880d8adcec6d6aec6abb21dad55f19e"
+  },
+  "NO_ADAPT": {
+    "differs_from_full": [
+      "alias of static reference mode"
+    ],
+    "fingerprint": "d4ab14d7664091c0ce16e24d5cb61b919e434c55691700290ca86ea7e61afe8b"
+  },
+  "NO_ASSURANCE": {
+    "differs_from_full": [
+      "assurance gate disabled"
+    ],
+    "fingerprint": "de369f4327a1930f5403beed760793864935438bead7975791c8ddaaeb7d04d5"
+  },
+  "NO_DRIFT": {
+    "differs_from_full": [
+      "drift evidence unavailable to downstream consumers"
+    ],
+    "fingerprint": "55c8a6d58dc9739dd72b1c79d05e32d115486609992f8148fe67f3378e44ab74"
+  },
+  "NO_TRUST": {
+    "differs_from_full": [
+      "fixed neutral trust 0.80"
+    ],
+    "fingerprint": "22959cbf008879c85a4ed2d72e80d02b156336a59181dfcc36df82f4cbd3a2a6"
+  },
+  "RULE_BASED": {
+    "differs_from_full": [
+      "frozen rule decision/planning adapters"
+    ],
+    "fingerprint": "98e27bd7341e6995d66ef90a85ceac30e6c9134b20cfe11e6a8a301eb75b97e6"
+  }
+}

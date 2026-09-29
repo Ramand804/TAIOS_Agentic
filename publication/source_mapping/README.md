@@ -1,0 +1,1 @@
+Derived publication outputs use only results/taios-publication-experiment-v1.json (SHA 92c0f6486045e9639cd3c873c1b8853c0024ffbd3f9201e5a76ddb85a8d1dc84). S7 seed-level records are identical across seeds for displayed metrics. No event-level trajectory data is derived or displayed.

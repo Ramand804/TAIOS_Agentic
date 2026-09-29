@@ -1,0 +1,3890 @@
+[
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.3285134026677602,
+      "mean": 0.3,
+      "median": 0.2,
+      "n": 5,
+      "sd": 0.264575131106459
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_LLM",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.3285134026677603,
+      "mean": 0.7,
+      "median": 0.8,
+      "n": 5,
+      "sd": 0.2645751311064591
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0008317854628387424,
+      "mean": 0.01865708636010822,
+      "median": 0.01849221399970702,
+      "n": 5,
+      "sd": 0.0006698957975409394
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S1",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.3285134026677602,
+      "mean": 0.3,
+      "median": 0.2,
+      "n": 5,
+      "sd": 0.264575131106459
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_MOCK",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.3285134026677603,
+      "mean": 0.7,
+      "median": 0.8,
+      "n": 5,
+      "sd": 0.2645751311064591
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0011272502733631505,
+      "mean": 0.019484752959615433,
+      "median": 0.019038535599247553,
+      "n": 5,
+      "sd": 0.0009078545546175865
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S1",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.3285134026677602,
+      "mean": 0.3,
+      "median": 0.2,
+      "n": 5,
+      "sd": 0.264575131106459
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "DETERMINISTIC_V1",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.3285134026677603,
+      "mean": 0.7,
+      "median": 0.8,
+      "n": 5,
+      "sd": 0.2645751311064591
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0007568267021903597,
+      "mean": 0.008902772939545684,
+      "median": 0.008755359899441827,
+      "n": 5,
+      "sd": 0.0006095261938502775
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S1",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.3285134026677602,
+      "mean": 0.3,
+      "median": 0.2,
+      "n": 5,
+      "sd": 0.264575131106459
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_ADAPTATION",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.3285134026677603,
+      "mean": 0.7,
+      "median": 0.8,
+      "n": 5,
+      "sd": 0.2645751311064591
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0010095766492374575,
+      "mean": 0.018996660019984117,
+      "median": 0.018739116299911984,
+      "n": 5,
+      "sd": 0.0008130836433609944
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S1",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.3285134026677602,
+      "mean": 0.3,
+      "median": 0.2,
+      "n": 5,
+      "sd": 0.264575131106459
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_AGENTIC_REASONING",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.3285134026677603,
+      "mean": 0.7,
+      "median": 0.8,
+      "n": 5,
+      "sd": 0.2645751311064591
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.000913717156862464,
+      "mean": 0.00894944084022427,
+      "median": 0.008592911300729611,
+      "n": 5,
+      "sd": 0.0007358811987820065
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S1",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.3285134026677602,
+      "mean": 0.3,
+      "median": 0.2,
+      "n": 5,
+      "sd": 0.264575131106459
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_DRIFT",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.3285134026677603,
+      "mean": 0.7,
+      "median": 0.8,
+      "n": 5,
+      "sd": 0.2645751311064591
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.000938113717193769,
+      "mean": 0.01893240172037622,
+      "median": 0.018571919100213562,
+      "n": 5,
+      "sd": 0.0007555294782609708
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S1",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.3285134026677602,
+      "mean": 0.3,
+      "median": 0.2,
+      "n": 5,
+      "sd": 0.264575131106459
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_MEMORY",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.3285134026677603,
+      "mean": 0.7,
+      "median": 0.8,
+      "n": 5,
+      "sd": 0.2645751311064591
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.000827343217887309,
+      "mean": 0.018921954700126663,
+      "median": 0.018693402200005947,
+      "n": 5,
+      "sd": 0.0006663181427759033
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S1",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.3285134026677602,
+      "mean": 0.3,
+      "median": 0.2,
+      "n": 5,
+      "sd": 0.264575131106459
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_TRUST",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.3285134026677603,
+      "mean": 0.7,
+      "median": 0.8,
+      "n": 5,
+      "sd": 0.2645751311064591
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00028068900067696693,
+      "mean": 0.01922786515999178,
+      "median": 0.01920271179988049,
+      "n": 5,
+      "sd": 0.00022605874996629955
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S1",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_LLM",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0001315038459896302,
+      "mean": 0.019728622599723168,
+      "median": 0.019759607999003493,
+      "n": 5,
+      "sd": 0.00010590936933217704
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S2",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_MOCK",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0001365449536942899,
+      "mean": 0.01998095659990213,
+      "median": 0.01992726770040463,
+      "n": 5,
+      "sd": 0.0001099693307250795
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S2",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "DETERMINISTIC_V1",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 6.56407173331703e-05,
+      "mean": 0.009627128380016075,
+      "median": 0.009611415800463874,
+      "n": 5,
+      "sd": 5.286512286352422e-05
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S2",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_ADAPTATION",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00017071129624321798,
+      "mean": 0.02010424186002638,
+      "median": 0.02005952619947493,
+      "n": 5,
+      "sd": 0.00013748590839254512
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S2",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_AGENTIC_REASONING",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0004987173873851223,
+      "mean": 0.009939419540241943,
+      "median": 0.009769564399903174,
+      "n": 5,
+      "sd": 0.0004016524655645006
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S2",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_DRIFT",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0002193586478321176,
+      "mean": 0.019911158119793982,
+      "median": 0.019933848700020462,
+      "n": 5,
+      "sd": 0.0001766650691820122
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S2",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_MEMORY",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00020973883202505788,
+      "mean": 0.020021054219760116,
+      "median": 0.02002126510051312,
+      "n": 5,
+      "sd": 0.0001689175495748842
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S2",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_TRUST",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.5,
+      "median": 0.5,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0006754489049556663,
+      "mean": 0.020281919479821227,
+      "median": 0.020166784800312598,
+      "n": 5,
+      "sd": 0.0005439868849585224
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S2",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_LLM",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 8.428042541731487e-05,
+      "mean": 0.01786539320004522,
+      "median": 0.017863102999763215,
+      "n": 5,
+      "sd": 6.787700113120093e-05
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S3",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_MOCK",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00017851166889145965,
+      "mean": 0.018157845579989954,
+      "median": 0.018173033299899544,
+      "n": 5,
+      "sd": 0.00014376810144563942
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S3",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "DETERMINISTIC_V1",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0002429069088358233,
+      "mean": 0.008066487499745563,
+      "median": 0.008044872399477754,
+      "n": 5,
+      "sd": 0.00019563015307749488
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S3",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_ADAPTATION",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00019712133335045645,
+      "mean": 0.01822645954001928,
+      "median": 0.018227364999984275,
+      "n": 5,
+      "sd": 0.00015875578345222652
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S3",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_AGENTIC_REASONING",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00016715832227410198,
+      "mean": 0.008122730999748456,
+      "median": 0.008100267199915833,
+      "n": 5,
+      "sd": 0.00013462444658896873
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S3",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_DRIFT",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00034461303119338605,
+      "mean": 0.018143510980080463,
+      "median": 0.018137968499650013,
+      "n": 5,
+      "sd": 0.0002775413032423357
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S3",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_MEMORY",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00021463537630359193,
+      "mean": 0.01816998334019445,
+      "median": 0.01810741340050299,
+      "n": 5,
+      "sd": 0.00017286108379279227
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S3",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_TRUST",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00021168692593871488,
+      "mean": 0.018069892940038697,
+      "median": 0.01803994010115275,
+      "n": 5,
+      "sd": 0.00017048648770169407
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S3",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_LLM",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00012861514484152712,
+      "mean": 0.018723763580564993,
+      "median": 0.01876960260015039,
+      "n": 5,
+      "sd": 0.00010358289352090032
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S4",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_MOCK",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00024996451651892136,
+      "mean": 0.019009121119743212,
+      "median": 0.01903402019997884,
+      "n": 5,
+      "sd": 0.0002013141448504031
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S4",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "DETERMINISTIC_V1",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0012835586197542535,
+      "mean": 0.00915149643966288,
+      "median": 0.008720436399744357,
+      "n": 5,
+      "sd": 0.0010337407464856374
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S4",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_ADAPTATION",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0001805482494458232,
+      "mean": 0.019219147360199713,
+      "median": 0.019255218399848673,
+      "n": 5,
+      "sd": 0.0001454083041369267
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S4",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_AGENTIC_REASONING",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00011612120126608993,
+      "mean": 0.008761720040420187,
+      "median": 0.008720714400988072,
+      "n": 5,
+      "sd": 9.35206350782788e-05
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S4",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_DRIFT",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0002444686411488669,
+      "mean": 0.01903710811959172,
+      "median": 0.019026958999893394,
+      "n": 5,
+      "sd": 0.00019688792681860036
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S4",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_MEMORY",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00017460202050829587,
+      "mean": 0.019061875359911936,
+      "median": 0.018982800900630536,
+      "n": 5,
+      "sd": 0.00014061938445219046
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S4",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_TRUST",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0001772476229677651,
+      "mean": 0.018885627019626556,
+      "median": 0.01885611489924486,
+      "n": 5,
+      "sd": 0.00014275007565652328
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S4",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_LLM",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0006312624506005667,
+      "mean": 0.02080453756003408,
+      "median": 0.020583196600273367,
+      "n": 5,
+      "sd": 0.0005084004009393199
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S5",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_MOCK",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00017417757144299792,
+      "mean": 0.020888768560034805,
+      "median": 0.02085648700049205,
+      "n": 5,
+      "sd": 0.00014027754553119892
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S5",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "DETERMINISTIC_V1",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00011525354757529898,
+      "mean": 0.010561814779866837,
+      "median": 0.010519618100079241,
+      "n": 5,
+      "sd": 9.282185205411042e-05
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S5",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_ADAPTATION",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0005583668796569078,
+      "mean": 0.02163231030019233,
+      "median": 0.021848318400225254,
+      "n": 5,
+      "sd": 0.00044969243017502247
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S5",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_AGENTIC_REASONING",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00016251380605750086,
+      "mean": 0.010641724140004954,
+      "median": 0.01058859670010861,
+      "n": 5,
+      "sd": 0.00013088388843531532
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S5",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_DRIFT",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0003073099896619004,
+      "mean": 0.020802558740106177,
+      "median": 0.020758108099835228,
+      "n": 5,
+      "sd": 0.0002474985195272253
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S5",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_MEMORY",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0002727466947376426,
+      "mean": 0.020876638119952988,
+      "median": 0.02093034559984517,
+      "n": 5,
+      "sd": 0.00021966224797240828
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S5",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_TRUST",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0013253053774680544,
+      "mean": 0.021245811819753727,
+      "median": 0.02088658289940213,
+      "n": 5,
+      "sd": 0.0010673623698523069
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S5",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0680087354890164,
+      "mean": 0.06000000000000001,
+      "median": 0.1,
+      "n": 5,
+      "sd": 0.05477225575051661
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_LLM",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.06800873548901638,
+      "mean": 0.9400000000000001,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0547722557505166
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00030190088239111554,
+      "mean": 0.01820783049974125,
+      "median": 0.018097682599182006,
+      "n": 5,
+      "sd": 0.00024314218199665533
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S6",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0680087354890164,
+      "mean": 0.06000000000000001,
+      "median": 0.1,
+      "n": 5,
+      "sd": 0.05477225575051661
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "AGENTIC_MOCK",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.06800873548901638,
+      "mean": 0.9400000000000001,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0547722557505166
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00032101373666563944,
+      "mean": 0.018404421079831083,
+      "median": 0.01834302600036608,
+      "n": 5,
+      "sd": 0.00025853511843223494
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S6",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0680087354890164,
+      "mean": 0.06000000000000001,
+      "median": 0.1,
+      "n": 5,
+      "sd": 0.05477225575051661
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "DETERMINISTIC_V1",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.06800873548901638,
+      "mean": 0.9400000000000001,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0547722557505166
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00018523306767570663,
+      "mean": 0.008314827779831831,
+      "median": 0.008325470699855942,
+      "n": 5,
+      "sd": 0.00014918132035883982
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S6",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0680087354890164,
+      "mean": 0.06000000000000001,
+      "median": 0.1,
+      "n": 5,
+      "sd": 0.05477225575051661
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_ADAPTATION",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.06800873548901638,
+      "mean": 0.9400000000000001,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0547722557505166
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0010552964559637724,
+      "mean": 0.01885381365987996,
+      "median": 0.018484962800357607,
+      "n": 5,
+      "sd": 0.0008499050447423266
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S6",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0680087354890164,
+      "mean": 0.06000000000000001,
+      "median": 0.1,
+      "n": 5,
+      "sd": 0.05477225575051661
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_AGENTIC_REASONING",
+    "fallback_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "human_review_rate": {
+      "ci95": 0.06800873548901638,
+      "mean": 0.9400000000000001,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0547722557505166
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00018780316628226034,
+      "mean": 0.008321265259946812,
+      "median": 0.008365898500051117,
+      "n": 5,
+      "sd": 0.0001512512029580383
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": null,
+      "mean": null,
+      "median": null,
+      "n": 0,
+      "sd": null
+    },
+    "scenario": "S6",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0680087354890164,
+      "mean": 0.06000000000000001,
+      "median": 0.1,
+      "n": 5,
+      "sd": 0.05477225575051661
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_DRIFT",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.06800873548901638,
+      "mean": 0.9400000000000001,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0547722557505166
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.0003304485123811413,
+      "mean": 0.01851025602009031,
+      "median": 0.0183575462007866,
+      "n": 5,
+      "sd": 0.0002661336121363517
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S6",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0680087354890164,
+      "mean": 0.06000000000000001,
+      "median": 0.1,
+      "n": 5,
+      "sd": 0.05477225575051661
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_MEMORY",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.06800873548901638,
+      "mean": 0.9400000000000001,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0547722557505166
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00037662738000163897,
+      "mean": 0.018453805600220217,
+      "median": 0.018465815100717008,
+      "n": 5,
+      "sd": 0.000303324727798069
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S6",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  },
+  {
+    "agentic_divergence_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "assurance_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "authority_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "autonomous_action_rate": {
+      "ci95": 0.0680087354890164,
+      "mean": 0.06000000000000001,
+      "median": 0.1,
+      "n": 5,
+      "sd": 0.05477225575051661
+    },
+    "candidate_compliance_violations": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "configuration": "NO_TRUST",
+    "fallback_rate": {
+      "ci95": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "human_review_rate": {
+      "ci95": 0.06800873548901638,
+      "mean": 0.9400000000000001,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0547722557505166
+    },
+    "mean_end_to_end_latency_seconds": {
+      "ci95": 0.00036237298957623825,
+      "mean": 0.018342692739752236,
+      "median": 0.01832569669932127,
+      "n": 5,
+      "sd": 0.00029184465671111494
+    },
+    "memory_retrieval_use_rate": {
+      "ci95": 0.0,
+      "mean": 0.9,
+      "median": 0.9,
+      "n": 5,
+      "sd": 0.0
+    },
+    "proposal_validation_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    },
+    "scenario": "S6",
+    "v1_agentic_agreement_rate": {
+      "ci95": 0.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "n": 5,
+      "sd": 0.0
+    }
+  }
+]

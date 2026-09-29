@@ -1,0 +1,152 @@
+{
+  "FULL_STATIC": {
+    "mechanisms": {
+      "adaptation_applications": 0,
+      "adapted_reference_usage": 0,
+      "already_restricted_upstream": 0,
+      "assurance_restrictions": 24,
+      "direct_threat_evidence": 0,
+      "governance_vetoes": 0,
+      "known_regime_change": 0,
+      "persistent_unexplained_drift": 24,
+      "trust": {
+        "final": 0.8192250000849464,
+        "initial": 0.80035,
+        "maximum": 0.8192250000849464,
+        "minimum": 0.80035
+      }
+    },
+    "metrics": {
+      "autonomous_execution_rate": 0.52,
+      "denominators": {
+        "events": 50,
+        "false_intervention_eligible": 25,
+        "unsafe_eligible": 25
+      },
+      "exact_action_agreement": 0.98,
+      "false_intervention_rate": 0.0,
+      "proposal_review_burden": 0.48,
+      "unsafe_action_rate": 0.04
+    }
+  },
+  "NO_ASSURANCE": {
+    "mechanisms": {
+      "adaptation_applications": 0,
+      "adapted_reference_usage": 0,
+      "already_restricted_upstream": 0,
+      "assurance_restrictions": 0,
+      "direct_threat_evidence": 0,
+      "governance_vetoes": 0,
+      "known_regime_change": 0,
+      "persistent_unexplained_drift": 24,
+      "trust": {
+        "final": 0.8192250000849464,
+        "initial": 0.80035,
+        "maximum": 0.8192250000849464,
+        "minimum": 0.80035
+      }
+    },
+    "metrics": {
+      "autonomous_execution_rate": 1.0,
+      "denominators": {
+        "events": 50,
+        "false_intervention_eligible": 25,
+        "unsafe_eligible": 25
+      },
+      "exact_action_agreement": 0.5,
+      "false_intervention_rate": 0.0,
+      "proposal_review_burden": 0.0,
+      "unsafe_action_rate": 1.0
+    }
+  },
+  "NO_DRIFT": {
+    "mechanisms": {
+      "adaptation_applications": 0,
+      "adapted_reference_usage": 0,
+      "already_restricted_upstream": 0,
+      "assurance_restrictions": 0,
+      "direct_threat_evidence": 0,
+      "governance_vetoes": 0,
+      "known_regime_change": 0,
+      "persistent_unexplained_drift": 0,
+      "trust": {
+        "final": 0.8192250000849464,
+        "initial": 0.80035,
+        "maximum": 0.8192250000849464,
+        "minimum": 0.80035
+      }
+    },
+    "metrics": {
+      "autonomous_execution_rate": 1.0,
+      "denominators": {
+        "events": 50,
+        "false_intervention_eligible": 25,
+        "unsafe_eligible": 25
+      },
+      "exact_action_agreement": 0.5,
+      "false_intervention_rate": 0.0,
+      "proposal_review_burden": 0.0,
+      "unsafe_action_rate": 1.0
+    }
+  },
+  "NO_TRUST": {
+    "mechanisms": {
+      "adaptation_applications": 0,
+      "adapted_reference_usage": 0,
+      "already_restricted_upstream": 0,
+      "assurance_restrictions": 24,
+      "direct_threat_evidence": 0,
+      "governance_vetoes": 0,
+      "known_regime_change": 0,
+      "persistent_unexplained_drift": 24,
+      "trust": {
+        "final": 0.8,
+        "initial": 0.8,
+        "maximum": 0.8,
+        "minimum": 0.8
+      }
+    },
+    "metrics": {
+      "autonomous_execution_rate": 0.52,
+      "denominators": {
+        "events": 50,
+        "false_intervention_eligible": 25,
+        "unsafe_eligible": 25
+      },
+      "exact_action_agreement": 0.98,
+      "false_intervention_rate": 0.0,
+      "proposal_review_burden": 0.48,
+      "unsafe_action_rate": 0.04
+    }
+  },
+  "RULE_BASED": {
+    "mechanisms": {
+      "adaptation_applications": 0,
+      "adapted_reference_usage": 0,
+      "already_restricted_upstream": 0,
+      "assurance_restrictions": 0,
+      "direct_threat_evidence": 0,
+      "governance_vetoes": 0,
+      "known_regime_change": 0,
+      "persistent_unexplained_drift": 24,
+      "trust": {
+        "final": 0.8192250000849464,
+        "initial": 0.80035,
+        "maximum": 0.8192250000849464,
+        "minimum": 0.80035
+      }
+    },
+    "metrics": {
+      "autonomous_execution_rate": 1.0,
+      "denominators": {
+        "events": 50,
+        "false_intervention_eligible": 25,
+        "unsafe_eligible": 25
+      },
+      "exact_action_agreement": 0.5,
+      "false_intervention_rate": 0.0,
+      "proposal_review_burden": 0.0,
+      "unsafe_action_rate": 1.0
+    }
+  }
+}

@@ -104,6 +104,235 @@ class TAIOSPipeline:
             synchronized.set_operating_mode(context['operating_mode'])
         return synchronized, synchronized.state_version != before
 
+    def _transaction_checkpoints(self):
+        """Internal V1 transaction snapshot; process_event retains ownership."""
+        return (self.trust_agent._checkpoint(), dict(self._entity_observations),
+                self.execution_agent._checkpoint(), self.threat_evidence_model._checkpoint(),
+                self.correlation_evidence_model._checkpoint(), self.memory._checkpoint(),
+                self.feedback_memory._checkpoint(), self.drift_detector._checkpoint(),
+                self.behavioral_adapter._checkpoint())
+
+    def _rollback_transaction(self, checkpoints):
+        trust, counts, execution, threat, correlation, memory, feedback, drift, adaptation = checkpoints
+        self.trust_agent._restore(trust)
+        self._entity_observations = defaultdict(int, counts)
+        self.execution_agent._restore(execution)
+        self.threat_evidence_model._restore(threat)
+        self.correlation_evidence_model._restore(correlation)
+        self.memory._restore(memory)
+        self.feedback_memory._restore(feedback)
+        self.drift_detector._restore(drift)
+        self.behavioral_adapter._restore(adaptation)
+
+    def _commit_processed_event(self, event_key, result):
+        self._processed_events[event_key] = result
+
+    def _build_assured_decision_context(self, observation, trust, risk, authorization, semantics, state_before, event_reference, drift, threat, correlation, stage_holder):
+        """Build the V1 authority/assurance-bounded planning context."""
+        base_context = build_decision_context(observation, trust, risk, authorization,
+            permission_policy=self.authorization_engine.policy,
+            operational_semantic_assessment=semantics, industrial_state=state_before)
+        stage_holder['stage'] = 'authority_assessment'
+        authority = self.authority_engine.assess(base_context)
+        stage_holder['stage'] = 'decision_assurance'
+        assurance = self.assurance_gate.assess(event_reference=event_reference, authority=authority,
+            trust=trust, threat=threat, risk=risk, drift=drift, correlation=correlation,
+            semantics=semantics, authorization=authorization)
+        assured_authority = self.assurance_gate.apply(authority, assurance)
+        stage_holder['stage'] = 'final_decision_context'
+        context = build_decision_context(observation, trust, risk, authorization,
+            permission_policy=self.authorization_engine.policy,
+            autonomous_authority_assessment=assured_authority, authority_policy=self.authority_engine.policy,
+            operational_semantic_assessment=semantics, industrial_state=state_before)
+        return authority, assurance, assured_authority, context
+
+    def _event_observation(self, event, state, stage_holder):
+        """Validate an event, form its observable input, and synchronize runtime state."""
+        self.event_manager.validate((event,))
+        stage_holder['stage'] = 'observable_input'
+        observation = runtime_observation(event)
+        state_before, regime_transition = self._synchronize_regime(state, observation)
+        return observation, state_before, regime_transition
+
+    def _operational_semantics(self, observation, stage_holder):
+        stage_holder['stage'] = 'operational_semantics'
+        return self.operational_semantic_model.assess(observation)
+
+    def _drift_assessment(self, observation, semantics, stage_holder):
+        stage_holder['stage'] = 'drift_detection'
+        event_reference = fingerprint(observation)
+        drift_scope = f'{observation["source_id"]}|{observation["target_id"]}|{observation["operation"]}'
+        drift_context = {
+            'operating_mode': observation['contextual_features'].get('operating_mode'),
+            'production_state': observation['contextual_features'].get('production_state')}
+        reference_snapshot = self.behavioral_adapter.store.get(drift_scope, drift_context)
+        drift = self.drift_detector.assess(observation, semantics, event_reference=event_reference)
+        return event_reference, drift, reference_snapshot
+
+    def _authorization_assessment(self, observation, stage_holder):
+        stage_holder['stage'] = 'authorization_assessment'
+        return self.authorization_engine.assess(observation)
+
+    def _threat_assessment(self, observation, semantics, authorization, stage_holder):
+        stage_holder['stage'] = 'threat_evidence'
+        return self.threat_evidence_model.assess(observation, semantics, authorization)
+
+    def _correlation_assessment(self, observation, threat, event_reference, stage_holder):
+        stage_holder['stage'] = 'correlation_evidence'
+        return self.correlation_evidence_model.assess(
+            observation, threat, current_event_reference=event_reference)
+
+    def _trust_assessment(self, observation, stage_holder):
+        source = observation['source_id']
+        self._entity_observations[source] += 1
+        stage_holder['stage'] = 'trust_assessment'
+        return self.trust_agent.assess(
+            observation, delivery_token=f'pipeline-{source}-{self._entity_observations[source]}',
+            observation_number=self._entity_observations[source])
+
+    def _risk_assessment(self, observation, trust, threat, stage_holder):
+        stage_holder['stage'] = 'risk_assessment'
+        return self.risk_agent.assess(
+            observation, trust, expected_trust_state_version=trust.trust_state_version,
+            threat_assessment=threat)
+
+    def _planning(self, context, stage_holder):
+        stage_holder['stage'] = 'planning'
+        return self.planning_agent.plan(context)
+
+    def _baseline_decision(self, context, plan, stage_holder):
+        stage_holder['stage'] = 'decision'
+        return self.decision_agent.decide(context, plan)
+
+    def _planning_and_decision(self, context, assurance, authority, assured_authority,
+                               stage_holder, decision_selector=None):
+        plan = self._planning(context, stage_holder)
+        proposal = self._baseline_decision(context, plan, stage_holder)
+        if decision_selector is not None:
+            proposal = decision_selector(
+                context, plan, proposal, assurance, authority, assured_authority)
+        return plan, proposal
+
+    def _governance_review(self, context, plan, proposal, stage_holder):
+        stage_holder['stage'] = 'governance'
+        return self.governance_agent.review(context, plan, proposal)
+
+    def _execute_decision(self, context, plan, proposal, governance, state_before, stage_holder):
+        stage_holder['stage'] = 'execution'
+        execution = self.execution_agent.execute(
+            context, plan, proposal, governance, state_before)
+        return execution, clone_state(execution.resulting_state)
+
+    def _observe_outcome(self, observation, execution, state_before, state_after,
+                         event_reference, stage_holder):
+        stage_holder['stage'] = 'outcome_observation'
+        return self.outcome_observer.observe(
+            observation, execution, state_before, state_after,
+            event_reference=event_reference)
+
+    def _commit_experience(self, *, event_reference, observation, semantics, threat,
+                           correlation, trust, risk, authorization, authority, plan,
+                           proposal, governance, execution, outcome, state_before,
+                           state_after, stage_holder):
+        stage_holder['stage'] = 'experience_commit'
+        experience = build_experience_record(
+            event_reference=event_reference, observation=observation,
+            semantics=semantics, threat=threat, correlation=correlation,
+            trust=trust, risk=risk, authorization=authorization,
+            authority=authority, planning=plan, proposal=proposal,
+            governance=governance, execution=execution, outcome=outcome,
+            state_before=state_before, state_after=state_after)
+        self.memory.append(experience)
+        return experience
+
+    def _interpret_feedback(self, experience, outcome, execution, stage_holder):
+        stage_holder['stage'] = 'feedback_interpretation'
+        return self.feedback_interpreter.interpret(experience, outcome, execution)
+
+    def _commit_feedback(self, feedback, stage_holder):
+        stage_holder['stage'] = 'feedback_commit'
+        self.feedback_memory.append(feedback)
+
+    def _behavioral_adaptation(self, observation, semantics, drift, feedback, stage_holder):
+        stage_holder['stage'] = 'behavioral_adaptation'
+        return self.behavioral_adapter.evaluate(observation, semantics, drift, feedback)
+
+    def _build_pipeline_result(self, *, event, event_reference, observation, trust, risk,
+                               authorization, semantics, drift, threat, correlation,
+                               authority, context, plan, proposal, governance, execution,
+                               outcome, experience, feedback, adaptation_proposal,
+                               adaptation_decision, reference_snapshot, assurance,
+                               assured_authority,
+                               input_state_reference, state_before, state_after,
+                               regime_transition):
+        return PipelineResult(
+            event_id=event.event_id, sequence_number=event.sequence_number,
+            event_reference=event_reference, observable_input=observation,
+            trust_assessment=trust, risk_assessment=risk,
+            authorization_assessment=authorization,
+            operational_semantic_assessment=semantics, drift_assessment=drift,
+            threat_assessment=threat, correlation_assessment=correlation,
+            authority_assessment=authority, decision_context=context,
+            planning_result=plan, proposed_decision=proposal,
+            governance_decision=governance, execution_result=execution,
+            observed_outcome=outcome, experience_reference=experience.reference,
+            feedback_reference=feedback.reference,
+            adaptation_proposal=adaptation_proposal,
+            adaptation_decision=adaptation_decision,
+            behavioral_reference_used=(reference_snapshot.reference if reference_snapshot else None),
+            assurance_assessment=assurance,
+            assured_authority_assessment=assured_authority,
+            input_state_reference=input_state_reference,
+            state_before=clone_state(state_before), state_after=state_after,
+            regime_transition_applied=regime_transition,
+            pipeline_version=PIPELINE_VERSION)
+
+    def _process_event_stages(self, event, state, input_state_reference, event_key, stage_holder,
+                              decision_selector=None):
+        """Run the canonical V1 lifecycle inside a caller-owned transaction."""
+        observation, state_before, regime_transition = self._event_observation(event, state, stage_holder)
+        semantics = self._operational_semantics(observation, stage_holder)
+        event_reference, drift, reference_snapshot = self._drift_assessment(observation, semantics, stage_holder)
+        authorization = self._authorization_assessment(observation, stage_holder)
+        threat = self._threat_assessment(observation, semantics, authorization, stage_holder)
+        correlation = self._correlation_assessment(observation, threat, event_reference, stage_holder)
+        trust = self._trust_assessment(observation, stage_holder)
+        risk = self._risk_assessment(observation, trust, threat, stage_holder)
+        stage_holder['stage'] = 'decision_context'
+        authority, assurance, assured_authority, context = self._build_assured_decision_context(
+            observation, trust, risk, authorization, semantics, state_before, event_reference,
+            drift, threat, correlation, stage_holder)
+        plan, proposal = self._planning_and_decision(
+            context, assurance, authority, assured_authority, stage_holder, decision_selector)
+        governance = self._governance_review(context, plan, proposal, stage_holder)
+        execution, state_after = self._execute_decision(
+            context, plan, proposal, governance, state_before, stage_holder)
+        outcome = self._observe_outcome(
+            observation, execution, state_before, state_after, event_reference, stage_holder)
+        experience = self._commit_experience(
+            event_reference=event_reference, observation=observation, semantics=semantics,
+            threat=threat, correlation=correlation, trust=trust, risk=risk,
+            authorization=authorization, authority=authority, plan=plan, proposal=proposal,
+            governance=governance, execution=execution, outcome=outcome,
+            state_before=state_before, state_after=state_after, stage_holder=stage_holder)
+        feedback = self._interpret_feedback(experience, outcome, execution, stage_holder)
+        self._commit_feedback(feedback, stage_holder)
+        adaptation_proposal, adaptation_decision = self._behavioral_adaptation(
+            observation, semantics, drift, feedback, stage_holder)
+        result = self._build_pipeline_result(
+            event=event, event_reference=event_reference, observation=observation,
+            trust=trust, risk=risk, authorization=authorization, semantics=semantics,
+            drift=drift, threat=threat, correlation=correlation, authority=authority,
+            context=context, plan=plan, proposal=proposal, governance=governance,
+            execution=execution, outcome=outcome, experience=experience, feedback=feedback,
+            adaptation_proposal=adaptation_proposal, adaptation_decision=adaptation_decision,
+            reference_snapshot=reference_snapshot, input_state_reference=input_state_reference,
+            state_before=state_before, state_after=state_after,
+            regime_transition=regime_transition, assurance=assurance,
+            assured_authority=assured_authority)
+        self._commit_processed_event(event_key, result)
+        return result
+
     def process_event(self, event, state):
         if type(state) is not IndustrialState:
             raise ValueError('Expected IndustrialState')
@@ -146,147 +375,15 @@ class TAIOSPipeline:
                 state_before=clone_state(state),
                 state_after=clone_state(replay.resulting_state),
                 regime_transition_applied=False, pipeline_version=PIPELINE_VERSION)
-        trust_checkpoint = self.trust_agent._checkpoint()
-        counts_checkpoint = dict(self._entity_observations)
-        execution_checkpoint = self.execution_agent._checkpoint()
-        threat_checkpoint = self.threat_evidence_model._checkpoint()
-        correlation_checkpoint = self.correlation_evidence_model._checkpoint()
-        memory_checkpoint = self.memory._checkpoint()
-        feedback_checkpoint = self.feedback_memory._checkpoint()
-        drift_checkpoint = self.drift_detector._checkpoint()
-        adaptation_checkpoint = self.behavioral_adapter._checkpoint()
-        stage = 'event_validation'
+        checkpoints = self._transaction_checkpoints()
+        stage = {'stage': 'event_validation'}
         try:
-            self.event_manager.validate((event,))
-            stage = 'observable_input'
-            observation = runtime_observation(event)
-            state_before, regime_transition = self._synchronize_regime(state, observation)
-
-            stage = 'operational_semantics'
-            semantics = self.operational_semantic_model.assess(observation)
-            stage = 'drift_detection'
-            event_reference = fingerprint(observation)
-            drift_scope = (
-                f'{observation["source_id"]}|{observation["target_id"]}|{observation["operation"]}')
-            drift_context = {
-                'operating_mode': observation['contextual_features'].get('operating_mode'),
-                'production_state': observation['contextual_features'].get('production_state')}
-            reference_snapshot = self.behavioral_adapter.store.get(drift_scope, drift_context)
-            drift = self.drift_detector.assess(
-                observation, semantics, event_reference=event_reference)
-
-            stage = 'authorization_assessment'
-            authorization = self.authorization_engine.assess(observation)
-            stage = 'threat_evidence'
-            threat = self.threat_evidence_model.assess(
-                observation, semantics, authorization)
-            stage = 'correlation_evidence'
-            correlation = self.correlation_evidence_model.assess(
-                observation, threat, current_event_reference=event_reference)
-            source = observation['source_id']
-            self._entity_observations[source] += 1
-            observation_number = self._entity_observations[source]
-            stage = 'trust_assessment'
-            trust = self.trust_agent.assess(
-                observation, delivery_token=f'pipeline-{source}-{observation_number}',
-                observation_number=observation_number)
-            stage = 'risk_assessment'
-            risk = self.risk_agent.assess(
-                observation, trust,
-                expected_trust_state_version=trust.trust_state_version,
-                threat_assessment=threat)
-            stage = 'decision_context'
-            base_context = build_decision_context(
-                observation, trust, risk, authorization,
-                permission_policy=self.authorization_engine.policy,
-                operational_semantic_assessment=semantics,
-                industrial_state=state_before)
-            stage = 'authority_assessment'
-            authority = self.authority_engine.assess(base_context)
-            stage = 'decision_assurance'
-            assurance = self.assurance_gate.assess(
-                event_reference=event_reference, authority=authority, trust=trust,
-                threat=threat, risk=risk, drift=drift, correlation=correlation,
-                semantics=semantics, authorization=authorization)
-            assured_authority = self.assurance_gate.apply(authority, assurance)
-            stage = 'final_decision_context'
-            context = build_decision_context(
-                observation, trust, risk, authorization,
-                permission_policy=self.authorization_engine.policy,
-                autonomous_authority_assessment=assured_authority,
-                authority_policy=self.authority_engine.policy,
-                operational_semantic_assessment=semantics,
-                industrial_state=state_before)
-            stage = 'planning'
-            plan = self.planning_agent.plan(context)
-            stage = 'decision'
-            proposal = self.decision_agent.decide(context, plan)
-            stage = 'governance'
-            governance = self.governance_agent.review(context, plan, proposal)
-            stage = 'execution'
-            execution = self.execution_agent.execute(
-                context, plan, proposal, governance, state_before)
-            state_after = clone_state(execution.resulting_state)
-            stage = 'outcome_observation'
-            outcome = self.outcome_observer.observe(
-                observation, execution, state_before, state_after,
-                event_reference=event_reference)
-            stage = 'experience_commit'
-            experience = build_experience_record(
-                event_reference=event_reference, observation=observation,
-                semantics=semantics, threat=threat, correlation=correlation,
-                trust=trust, risk=risk, authorization=authorization,
-                authority=authority, planning=plan, proposal=proposal,
-                governance=governance, execution=execution, outcome=outcome,
-                state_before=state_before, state_after=state_after)
-            self.memory.append(experience)
-            stage = 'feedback_interpretation'
-            feedback = self.feedback_interpreter.interpret(
-                experience, outcome, execution)
-            stage = 'feedback_commit'
-            self.feedback_memory.append(feedback)
-            stage = 'behavioral_adaptation'
-            adaptation_proposal, adaptation_decision = self.behavioral_adapter.evaluate(
-                observation, semantics, drift, feedback)
-            result = PipelineResult(
-                event_id=event.event_id, sequence_number=event.sequence_number,
-                event_reference=event_reference, observable_input=observation,
-                trust_assessment=trust, risk_assessment=risk,
-                authorization_assessment=authorization,
-                operational_semantic_assessment=semantics,
-                drift_assessment=drift,
-                threat_assessment=threat,
-                correlation_assessment=correlation,
-                authority_assessment=authority, decision_context=context,
-                planning_result=plan, proposed_decision=proposal,
-                governance_decision=governance, execution_result=execution,
-                observed_outcome=outcome, experience_reference=experience.reference,
-                feedback_reference=feedback.reference,
-                adaptation_proposal=adaptation_proposal,
-                adaptation_decision=adaptation_decision,
-                behavioral_reference_used=(
-                    reference_snapshot.reference if reference_snapshot else None),
-                assurance_assessment=assurance,
-                assured_authority_assessment=assured_authority,
-                input_state_reference=input_state_reference,
-                state_before=clone_state(state_before), state_after=state_after,
-                regime_transition_applied=regime_transition,
-                pipeline_version=PIPELINE_VERSION)
-            self._processed_events[event_key] = result
-            return result
+            return self._process_event_stages(event, state, input_state_reference, event_key, stage)
         except PipelineProcessingError:
             raise
         except (AttributeError, KeyError, TypeError, ValueError) as exc:
-            self.trust_agent._restore(trust_checkpoint)
-            self._entity_observations = defaultdict(int, counts_checkpoint)
-            self.execution_agent._restore(execution_checkpoint)
-            self.threat_evidence_model._restore(threat_checkpoint)
-            self.correlation_evidence_model._restore(correlation_checkpoint)
-            self.memory._restore(memory_checkpoint)
-            self.feedback_memory._restore(feedback_checkpoint)
-            self.drift_detector._restore(drift_checkpoint)
-            self.behavioral_adapter._restore(adaptation_checkpoint)
-            self._failure(stage, exc, event, state)
+            self._rollback_transaction(checkpoints)
+            self._failure(stage['stage'], exc, event, state)
 
     def run_episode(self, events, initial_state=None, *, scenario_reference=None, seed=None):
         self.reset()

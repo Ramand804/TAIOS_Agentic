@@ -1,0 +1,97 @@
+{
+  "artifact_hashes": {
+    "evidence_freeze_manifest.json": "d64d96439e738fba2d75c810f00dcba49f3a962b516ab72d4d405c016b64386f",
+    "evidence_summary.json": "ac03ec189195d6536de72d0eb6bfa1f97f42a7ff23b957e2cf53fd4a5c080710",
+    "figures/fig01_review_rate.png": "941f47bbac6ba536cf488ee6e31c480ec3a04881e0a4fb160411ae4f1e4a21d0",
+    "figures/fig02_autonomy_rate.png": "f40b148218a16f1a021f0576d5bbe397cdeab93fec5ade756948073c65938707",
+    "figures/fig03_memory_use.png": "2f1de5955b3ef65ad2c063f0a57d05a9399323444bcd1045c0d462d82e8d0751",
+    "manifest.json": "2593a7e2681c05a79fb04d199d49e5626f19b603b3e4a86e68ebe804cc116b00",
+    "raw/seed-123.json": "594c43898647403c7a64aab7af59479646eec31f4d93a8551668f3ed69157cf0",
+    "raw/seed-2026.json": "64ce8e086408192d7bb260973fbef2e18381797f4d4704e7662abe0b4703a658",
+    "raw/seed-42.json": "fc7ce5322f4be90b8f3295c2cb171c00539a1511cf2f048d082aff6374a3fa9d",
+    "raw/seed-456.json": "2199ef61e0232e9fbbca70df83f45fc86d141e8119e2307871cdd2170d57774c",
+    "raw/seed-789.json": "a383b8800b91848745cd17e02aeaca7d9628217ca279a91824f353ee9aa6bd3d",
+    "tables/table01_overall_configuration.json": "7395ba264cf9e8a86a48f643931af07d40d807d701354fdaf80d7dce2da9f081",
+    "tables/table01_overall_configuration.md": "40f2e7d8b0b6f0755f312b8c1847d623abd4ab122f49a6a77e590db0808c8214",
+    "tables/table02_scenario_configuration.json": "7651a9c1fbbcd7330addffeaec316ac3bd479fb317b2a823c083c74ae1bfcc6f",
+    "tables/table02_scenario_configuration.md": "6c9381a94d71613cf3fa631bf4647ed72b49dda307066332cbeb1acf7ed38e3d",
+    "tables/table03_agentic_behavior.json": "23fa50ec239b1a6ddb2cc4985890a147d9a86644c93dc42c03cfa6df72a5f53a",
+    "tables/table03_agentic_behavior.md": "4b92f2f1f529101d5cee19e3589e6e5e84d48d394067a9f257fd9d2da9e32257",
+    "tables/table04_ablations.json": "e3cbc2e33aeca7bff437044ce0b6460e5f13ad1022048251455a226cba5c245f",
+    "tables/table04_ablations.md": "4bc8f3a16bf97e08da9b1b18c5ff3eb0873739a567db50c2b12ee0d72d6e6a16",
+    "tables/table05_safety.json": "23fa50ec239b1a6ddb2cc4985890a147d9a86644c93dc42c03cfa6df72a5f53a",
+    "tables/table05_safety.md": "4702e4ca2055bac284daf941f4b9246d419559aa13cdcafe68b1521e12f7b457",
+    "tables/table06_latency.json": "f1aeb6b04c646570aeb5d5a4d80aeb0e8866576e2a75dade48e260ef8b53c1d8",
+    "tables/table06_latency.md": "15d5a34566e9d78278719bc134e50253f6670a47958a3841ebb89d5132dfe0d3",
+    "tables/table_raw_per_seed.csv": "722d02ecbae78b71ab7b9c87931bd0ce1dc44a1734c9a175e15d8d9dd37c5389"
+  },
+  "branch": "taios-v2-agentic",
+  "dependencies": {
+    "langgraph": "1.2.12",
+    "openai": "1.109.1"
+  },
+  "experiment": {
+    "configurations": [
+      "DETERMINISTIC_V1",
+      "AGENTIC_MOCK",
+      "NO_AGENTIC_REASONING",
+      "NO_MEMORY",
+      "NO_TRUST",
+      "NO_DRIFT",
+      "NO_ADAPTATION",
+      "AGENTIC_LLM_UNAVAILABLE_FALLBACK"
+    ],
+    "decisions": 2400,
+    "episodes": 240,
+    "replication_unit": "seed",
+    "scenarios": [
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6"
+    ],
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      2026
+    ]
+  },
+  "frozen_v1_reference": "7e19b499e913b3cb18c3d2301e37fbe8fd91e8d3",
+  "frozen_v1_tag": "taios-implementation-v1",
+  "head": "e1812bbc19ea85874bbb639157540951b0689dbb",
+  "known_limitations": [
+    "No successful real-provider validation or token/cost measurement.",
+    "No demonstrated causal action improvement from memory or trust.",
+    "No real-world deployment or cyberattack-prevention claim."
+  ],
+  "live_provider_status": "NOT_EVALUATED_LIVE_PROVIDER",
+  "manifest_type": "TAIOS_V2_FINAL_IMPLEMENTATION_EVIDENCE_FREEZE",
+  "prompt_version": "v2-real-provider-1",
+  "provider_failure_coverage": [
+    "AUTHENTICATION_FAILED",
+    "RATE_LIMIT_OR_QUOTA",
+    "TIMEOUT",
+    "CONNECTION_FAILED",
+    "MODEL_UNAVAILABLE",
+    "MALFORMED_PROVIDER_RESPONSE"
+  ],
+  "python_version": "3.14.4",
+  "regression": {
+    "v1": "802 passed",
+    "v2": "84 passed, 1 skipped (live opt-in test)"
+  },
+  "safety_invariants": {
+    "assurance_compliance_violations": 0,
+    "authority_compliance_violations": 0,
+    "candidate_compliance_violations": 0,
+    "evaluator_fields_in_agentic_input": false,
+    "governance_mandatory": true,
+    "llm_direct_execution": false
+  },
+  "schema_version": "v1",
+  "workflow_version": "v2-2c-full-lifecycle-1"
+}

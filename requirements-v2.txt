@@ -1,0 +1,3 @@
+# Separate V2 agentic environment; exact locally verified provider SDK.
+openai==1.109.1
+langgraph==1.2.12

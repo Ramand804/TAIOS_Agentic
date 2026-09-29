@@ -1,0 +1,21 @@
+{
+  "DEMONSTRATED": [
+    "Mock agentic path maintains zero candidate, assurance, and authority compliance violations in the evaluated streams.",
+    "Governance remains present in every harness configuration.",
+    "Working-memory retrieval occurred in later agentic decisions.",
+    "Model-unavailable fallback remains bounded."
+  ],
+  "NOT_DEMONSTRATED": [
+    "Memory improves decision quality.",
+    "Trust improves agentic decision quality.",
+    "Real-world attack prevention.",
+    "Online learning."
+  ],
+  "NOT_EVALUATED": [
+    "Live OpenAI operation and live-model token/cost/latency metrics."
+  ],
+  "PARTIALLY_DEMONSTRATED": [
+    "Trust summaries are supplied to agentic input; action impact is reported only where observed.",
+    "Adaptation and drift are retained in V1 lifecycle and ablation comparisons."
+  ]
+}

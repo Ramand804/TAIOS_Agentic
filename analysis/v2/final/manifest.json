@@ -1,0 +1,29 @@
+{
+  "decisions": 2400,
+  "episodes": 240,
+  "events_per_episode": 10,
+  "live_provider_status": "NOT_EVALUATED_LIVE_PROVIDER",
+  "raw_files": {
+    "seed-123.json": "594c43898647403c7a64aab7af59479646eec31f4d93a8551668f3ed69157cf0",
+    "seed-2026.json": "64ce8e086408192d7bb260973fbef2e18381797f4d4704e7662abe0b4703a658",
+    "seed-42.json": "fc7ce5322f4be90b8f3295c2cb171c00539a1511cf2f048d082aff6374a3fa9d",
+    "seed-456.json": "2199ef61e0232e9fbbca70df83f45fc86d141e8119e2307871cdd2170d57774c",
+    "seed-789.json": "a383b8800b91848745cd17e02aeaca7d9628217ca279a91824f353ee9aa6bd3d"
+  },
+  "replication_unit": "seed",
+  "scenarios": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "seeds": [
+    42,
+    123,
+    456,
+    789,
+    2026
+  ]
+}

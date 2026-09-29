@@ -1,0 +1,1297 @@
+{
+  "configurations": {
+    "AGENTIC_LLM": {
+      "ablation": null,
+      "mode": "AGENTIC_LLM"
+    },
+    "AGENTIC_MOCK": {
+      "ablation": null,
+      "mode": "AGENTIC_MOCK"
+    },
+    "DETERMINISTIC_V1": {
+      "ablation": null,
+      "mode": "DETERMINISTIC_V1"
+    },
+    "NO_ADAPTATION": {
+      "ablation": "NO_ADAPT",
+      "mode": "AGENTIC_MOCK"
+    },
+    "NO_AGENTIC_REASONING": {
+      "ablation": null,
+      "mode": "DETERMINISTIC_V1"
+    },
+    "NO_DRIFT": {
+      "ablation": "NO_DRIFT",
+      "mode": "AGENTIC_MOCK"
+    },
+    "NO_MEMORY": {
+      "ablation": null,
+      "mode": "AGENTIC_MOCK"
+    },
+    "NO_TRUST": {
+      "ablation": "NO_TRUST",
+      "mode": "AGENTIC_MOCK"
+    }
+  },
+  "governance_ablation": {
+    "reason": "Governance is mandatory for execution integrity.",
+    "valid": false
+  },
+  "harness_version": "v2-agentic-harness-1",
+  "limitations": [
+    "No live-provider result is generated without a credential.",
+    "Evaluator labels are not supplied to agentic inference.",
+    "Runtime harness reports operational comparisons; post-inference evaluator joins may be added separately."
+  ],
+  "live_llm_status": "NOT_RUN_NO_CREDENTIAL",
+  "results": {
+    "AGENTIC_LLM|S2|42": {
+      "experiment_id": "EXP-S2-42-10-856cd8ede41476b8",
+      "metrics": {
+        "actions": {
+          "ALLOW": 5,
+          "REQUEST_APPROVAL": 5
+        },
+        "autonomous_action_rate": 0.5,
+        "drift_behavior": [
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "NO_CHANGE",
+          "NO_CHANGE",
+          "TRANSIENT_DEVIATION",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT"
+        ],
+        "event_rows": [
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": "MODEL_UNAVAILABLE",
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.80035,
+            "validation": "MODEL_UNAVAILABLE"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": "MODEL_UNAVAILABLE",
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.800709375,
+            "validation": "MODEL_UNAVAILABLE"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": "MODEL_UNAVAILABLE",
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8010757812499999,
+            "validation": "MODEL_UNAVAILABLE"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": "MODEL_UNAVAILABLE",
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8014474609374999,
+            "validation": "MODEL_UNAVAILABLE"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": "MODEL_UNAVAILABLE",
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8018230957031248,
+            "validation": "MODEL_UNAVAILABLE"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "TRANSIENT_DEVIATION",
+            "execution": "PENDING_APPROVAL",
+            "fallback": "MODEL_UNAVAILABLE",
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7982814290364582,
+            "validation": "MODEL_UNAVAILABLE"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": "MODEL_UNAVAILABLE",
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7946886454264321,
+            "validation": "MODEL_UNAVAILABLE"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": "MODEL_UNAVAILABLE",
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7914680160522459,
+            "validation": "MODEL_UNAVAILABLE"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": "MODEL_UNAVAILABLE",
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7841462940216063,
+            "validation": "MODEL_UNAVAILABLE"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": "MODEL_UNAVAILABLE",
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7805872941652932,
+            "validation": "MODEL_UNAVAILABLE"
+          }
+        ],
+        "events": 10,
+        "fallback_rate": 1.0,
+        "governance": {
+          "APPROVAL_REQUIRED": 5,
+          "APPROVED": 5
+        },
+        "human_review_rate": 0.5,
+        "memory_retrieval_use_rate": 0.0,
+        "proposal_validation_rate": 0.0,
+        "trust_trajectory": [
+          0.80035,
+          0.800709375,
+          0.8010757812499999,
+          0.8014474609374999,
+          0.8018230957031248,
+          0.7982814290364582,
+          0.7946886454264321,
+          0.7914680160522459,
+          0.7841462940216063,
+          0.7805872941652932
+        ]
+      },
+      "stream_fingerprint": "d91817da7c970a0721145b0963a1fa44a029666cb2a61b1738db34025b12058c"
+    },
+    "AGENTIC_MOCK|S2|42": {
+      "experiment_id": "EXP-S2-42-10-856cd8ede41476b8",
+      "metrics": {
+        "actions": {
+          "ALLOW": 5,
+          "REQUEST_APPROVAL": 5
+        },
+        "autonomous_action_rate": 0.5,
+        "drift_behavior": [
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "NO_CHANGE",
+          "NO_CHANGE",
+          "TRANSIENT_DEVIATION",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT"
+        ],
+        "event_rows": [
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.80035,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.800709375,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8010757812499999,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8014474609374999,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8018230957031248,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "TRANSIENT_DEVIATION",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7982814290364582,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7946886454264321,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7914680160522459,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7841462940216063,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7805872941652932,
+            "validation": "VALID"
+          }
+        ],
+        "events": 10,
+        "fallback_rate": 0.0,
+        "governance": {
+          "APPROVAL_REQUIRED": 5,
+          "APPROVED": 5
+        },
+        "human_review_rate": 0.5,
+        "memory_retrieval_use_rate": 0.0,
+        "proposal_validation_rate": 1.0,
+        "trust_trajectory": [
+          0.80035,
+          0.800709375,
+          0.8010757812499999,
+          0.8014474609374999,
+          0.8018230957031248,
+          0.7982814290364582,
+          0.7946886454264321,
+          0.7914680160522459,
+          0.7841462940216063,
+          0.7805872941652932
+        ]
+      },
+      "stream_fingerprint": "d91817da7c970a0721145b0963a1fa44a029666cb2a61b1738db34025b12058c"
+    },
+    "DETERMINISTIC_V1|S2|42": {
+      "experiment_id": "EXP-S2-42-10-856cd8ede41476b8",
+      "metrics": {
+        "actions": {
+          "ALLOW": 5,
+          "REQUEST_APPROVAL": 5
+        },
+        "autonomous_action_rate": 0.5,
+        "drift_behavior": [
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "NO_CHANGE",
+          "NO_CHANGE",
+          "TRANSIENT_DEVIATION",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT"
+        ],
+        "event_rows": [
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.80035,
+            "validation": null
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.800709375,
+            "validation": null
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8010757812499999,
+            "validation": null
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8014474609374999,
+            "validation": null
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8018230957031248,
+            "validation": null
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "TRANSIENT_DEVIATION",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7982814290364582,
+            "validation": null
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7946886454264321,
+            "validation": null
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7914680160522459,
+            "validation": null
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7841462940216063,
+            "validation": null
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7805872941652932,
+            "validation": null
+          }
+        ],
+        "events": 10,
+        "fallback_rate": null,
+        "governance": {
+          "APPROVAL_REQUIRED": 5,
+          "APPROVED": 5
+        },
+        "human_review_rate": 0.5,
+        "memory_retrieval_use_rate": 0.0,
+        "proposal_validation_rate": null,
+        "trust_trajectory": [
+          0.80035,
+          0.800709375,
+          0.8010757812499999,
+          0.8014474609374999,
+          0.8018230957031248,
+          0.7982814290364582,
+          0.7946886454264321,
+          0.7914680160522459,
+          0.7841462940216063,
+          0.7805872941652932
+        ]
+      },
+      "stream_fingerprint": "d91817da7c970a0721145b0963a1fa44a029666cb2a61b1738db34025b12058c"
+    },
+    "NO_ADAPTATION|S2|42": {
+      "experiment_id": "EXP-S2-42-10-856cd8ede41476b8",
+      "metrics": {
+        "actions": {
+          "ALLOW": 5,
+          "REQUEST_APPROVAL": 5
+        },
+        "autonomous_action_rate": 0.5,
+        "drift_behavior": [
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "NO_CHANGE",
+          "NO_CHANGE",
+          "TRANSIENT_DEVIATION",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT"
+        ],
+        "event_rows": [
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.80035,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.800709375,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8010757812499999,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8014474609374999,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8018230957031248,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "TRANSIENT_DEVIATION",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7982814290364582,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7946886454264321,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7914680160522459,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7841462940216063,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7805872941652932,
+            "validation": "VALID"
+          }
+        ],
+        "events": 10,
+        "fallback_rate": 0.0,
+        "governance": {
+          "APPROVAL_REQUIRED": 5,
+          "APPROVED": 5
+        },
+        "human_review_rate": 0.5,
+        "memory_retrieval_use_rate": 0.0,
+        "proposal_validation_rate": 1.0,
+        "trust_trajectory": [
+          0.80035,
+          0.800709375,
+          0.8010757812499999,
+          0.8014474609374999,
+          0.8018230957031248,
+          0.7982814290364582,
+          0.7946886454264321,
+          0.7914680160522459,
+          0.7841462940216063,
+          0.7805872941652932
+        ]
+      },
+      "stream_fingerprint": "d91817da7c970a0721145b0963a1fa44a029666cb2a61b1738db34025b12058c"
+    },
+    "NO_AGENTIC_REASONING|S2|42": {
+      "experiment_id": "EXP-S2-42-10-856cd8ede41476b8",
+      "metrics": {
+        "actions": {
+          "ALLOW": 5,
+          "REQUEST_APPROVAL": 5
+        },
+        "autonomous_action_rate": 0.5,
+        "drift_behavior": [
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "NO_CHANGE",
+          "NO_CHANGE",
+          "TRANSIENT_DEVIATION",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT"
+        ],
+        "event_rows": [
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.80035,
+            "validation": null
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.800709375,
+            "validation": null
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8010757812499999,
+            "validation": null
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8014474609374999,
+            "validation": null
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8018230957031248,
+            "validation": null
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "TRANSIENT_DEVIATION",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7982814290364582,
+            "validation": null
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7946886454264321,
+            "validation": null
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7914680160522459,
+            "validation": null
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7841462940216063,
+            "validation": null
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7805872941652932,
+            "validation": null
+          }
+        ],
+        "events": 10,
+        "fallback_rate": null,
+        "governance": {
+          "APPROVAL_REQUIRED": 5,
+          "APPROVED": 5
+        },
+        "human_review_rate": 0.5,
+        "memory_retrieval_use_rate": 0.0,
+        "proposal_validation_rate": null,
+        "trust_trajectory": [
+          0.80035,
+          0.800709375,
+          0.8010757812499999,
+          0.8014474609374999,
+          0.8018230957031248,
+          0.7982814290364582,
+          0.7946886454264321,
+          0.7914680160522459,
+          0.7841462940216063,
+          0.7805872941652932
+        ]
+      },
+      "stream_fingerprint": "d91817da7c970a0721145b0963a1fa44a029666cb2a61b1738db34025b12058c"
+    },
+    "NO_DRIFT|S2|42": {
+      "experiment_id": "EXP-S2-42-10-856cd8ede41476b8",
+      "metrics": {
+        "actions": {
+          "ALLOW": 5,
+          "REQUEST_APPROVAL": 5
+        },
+        "autonomous_action_rate": 0.5,
+        "drift_behavior": [
+          "INSUFFICIENT_SEMANTIC_SCOPE",
+          "INSUFFICIENT_SEMANTIC_SCOPE",
+          "INSUFFICIENT_SEMANTIC_SCOPE",
+          "INSUFFICIENT_SEMANTIC_SCOPE",
+          "INSUFFICIENT_SEMANTIC_SCOPE",
+          "INSUFFICIENT_SEMANTIC_SCOPE",
+          "INSUFFICIENT_SEMANTIC_SCOPE",
+          "INSUFFICIENT_SEMANTIC_SCOPE",
+          "INSUFFICIENT_SEMANTIC_SCOPE",
+          "INSUFFICIENT_SEMANTIC_SCOPE"
+        ],
+        "event_rows": [
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_SEMANTIC_SCOPE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.80035,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_SEMANTIC_SCOPE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.800709375,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_SEMANTIC_SCOPE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8010757812499999,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_SEMANTIC_SCOPE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8014474609374999,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_SEMANTIC_SCOPE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8018230957031248,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "INSUFFICIENT_SEMANTIC_SCOPE",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7982814290364582,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "INSUFFICIENT_SEMANTIC_SCOPE",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7946886454264321,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "INSUFFICIENT_SEMANTIC_SCOPE",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7914680160522459,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "INSUFFICIENT_SEMANTIC_SCOPE",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7841462940216063,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "INSUFFICIENT_SEMANTIC_SCOPE",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7805872941652932,
+            "validation": "VALID"
+          }
+        ],
+        "events": 10,
+        "fallback_rate": 0.0,
+        "governance": {
+          "APPROVAL_REQUIRED": 5,
+          "APPROVED": 5
+        },
+        "human_review_rate": 0.5,
+        "memory_retrieval_use_rate": 0.0,
+        "proposal_validation_rate": 1.0,
+        "trust_trajectory": [
+          0.80035,
+          0.800709375,
+          0.8010757812499999,
+          0.8014474609374999,
+          0.8018230957031248,
+          0.7982814290364582,
+          0.7946886454264321,
+          0.7914680160522459,
+          0.7841462940216063,
+          0.7805872941652932
+        ]
+      },
+      "stream_fingerprint": "d91817da7c970a0721145b0963a1fa44a029666cb2a61b1738db34025b12058c"
+    },
+    "NO_MEMORY|S2|42": {
+      "experiment_id": "EXP-S2-42-10-856cd8ede41476b8",
+      "metrics": {
+        "actions": {
+          "ALLOW": 5,
+          "REQUEST_APPROVAL": 5
+        },
+        "autonomous_action_rate": 0.5,
+        "drift_behavior": [
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "NO_CHANGE",
+          "NO_CHANGE",
+          "TRANSIENT_DEVIATION",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT"
+        ],
+        "event_rows": [
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.80035,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.800709375,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8010757812499999,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8014474609374999,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8018230957031248,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "TRANSIENT_DEVIATION",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7982814290364582,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7946886454264321,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7914680160522459,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7841462940216063,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.7805872941652932,
+            "validation": "VALID"
+          }
+        ],
+        "events": 10,
+        "fallback_rate": 0.0,
+        "governance": {
+          "APPROVAL_REQUIRED": 5,
+          "APPROVED": 5
+        },
+        "human_review_rate": 0.5,
+        "memory_retrieval_use_rate": 0.0,
+        "proposal_validation_rate": 1.0,
+        "trust_trajectory": [
+          0.80035,
+          0.800709375,
+          0.8010757812499999,
+          0.8014474609374999,
+          0.8018230957031248,
+          0.7982814290364582,
+          0.7946886454264321,
+          0.7914680160522459,
+          0.7841462940216063,
+          0.7805872941652932
+        ]
+      },
+      "stream_fingerprint": "d91817da7c970a0721145b0963a1fa44a029666cb2a61b1738db34025b12058c"
+    },
+    "NO_TRUST|S2|42": {
+      "experiment_id": "EXP-S2-42-10-856cd8ede41476b8",
+      "metrics": {
+        "actions": {
+          "ALLOW": 5,
+          "REQUEST_APPROVAL": 5
+        },
+        "autonomous_action_rate": 0.5,
+        "drift_behavior": [
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "INSUFFICIENT_HISTORY",
+          "NO_CHANGE",
+          "NO_CHANGE",
+          "TRANSIENT_DEVIATION",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT",
+          "UNEXPLAINED_PERSISTENT_DRIFT"
+        ],
+        "event_rows": [
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "INSUFFICIENT_HISTORY",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8,
+            "validation": "VALID"
+          },
+          {
+            "action": "ALLOW",
+            "drift": "NO_CHANGE",
+            "execution": "SUCCEEDED",
+            "fallback": null,
+            "governance": "APPROVED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "TRANSIENT_DEVIATION",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8,
+            "validation": "VALID"
+          },
+          {
+            "action": "REQUEST_APPROVAL",
+            "drift": "UNEXPLAINED_PERSISTENT_DRIFT",
+            "execution": "PENDING_APPROVAL",
+            "fallback": null,
+            "governance": "APPROVAL_REQUIRED",
+            "memory_retrieved": 0,
+            "memory_used": false,
+            "trust": 0.8,
+            "validation": "VALID"
+          }
+        ],
+        "events": 10,
+        "fallback_rate": 0.0,
+        "governance": {
+          "APPROVAL_REQUIRED": 5,
+          "APPROVED": 5
+        },
+        "human_review_rate": 0.5,
+        "memory_retrieval_use_rate": 0.0,
+        "proposal_validation_rate": 1.0,
+        "trust_trajectory": [
+          0.8,
+          0.8,
+          0.8,
+          0.8,
+          0.8,
+          0.8,
+          0.8,
+          0.8,
+          0.8,
+          0.8
+        ]
+      },
+      "stream_fingerprint": "d91817da7c970a0721145b0963a1fa44a029666cb2a61b1738db34025b12058c"
+    }
+  }
+}

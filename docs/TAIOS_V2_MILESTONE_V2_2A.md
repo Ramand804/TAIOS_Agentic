@@ -1,0 +1,3 @@
+# V2-2A: agentic safety integration
+
+The isolated adapter connects sanitized deterministic planner context to an advisory reasoner, validates the output, and returns the unchanged deterministic V1 proposal on every invalid or failed advisory path. The candidate-set, authority, assurance, and governance/execution boundaries remain unchanged: advice cannot create authority and never authorizes execution. Mock modes exercise valid, malformed, unknown, outside-set, timeout, provider-error, and empty output paths. V1 regression: 808 tests passed after V2 contract additions. No LangGraph, LLM SDK, or external provider is included.

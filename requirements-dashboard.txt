@@ -1,0 +1,4 @@
+# Read-only Streamlit presentation environment for the industrial testbed.
+streamlit==1.54.0
+PyYAML==6.0.3
+langgraph==1.2.12

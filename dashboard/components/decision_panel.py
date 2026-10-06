@@ -1,0 +1,11 @@
+def render(st, summary):
+    st.subheader("Bounded agentic decision")
+    st.metric("FINAL BOUNDED DECISION", summary["final_action"] or "NO ACTION")
+    st.write("**Deterministic V1 baseline:**", summary["baseline"] or "N/A")
+    st.write("**Planner candidates:**", ", ".join(summary["candidates"]) or "N/A")
+    st.write("**Agentic recommendation:**", summary["recommendation"] or "N/A")
+    st.write("**Agentic validation:**", summary["validation"])
+    st.write("**Authority:**", summary["authority"])
+    st.write("**Assurance:**", summary["assurance"])
+    st.write("**Governance:**", summary["governance"])
+    st.write("**Execution / review:**", summary["execution"])

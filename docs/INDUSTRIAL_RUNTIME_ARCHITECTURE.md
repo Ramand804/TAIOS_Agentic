@@ -1,0 +1,2 @@
+# TAIOS Industrial Runtime
+The industrial runtime is a separate deployment-oriented layer. The frozen TAIOS Research Runtime remains the controlled experimental implementation. Industrial semantics delegate to `ProcessLimits`; industrial authorization is an explicit testbed matrix. Neither path constructs evaluator metadata or executes process commands. Research evidence does not automatically validate industrial runtime behavior.

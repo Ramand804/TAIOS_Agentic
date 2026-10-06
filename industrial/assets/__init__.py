@@ -1,0 +1,1 @@
+from industrial.assets.registry import INDUSTRIAL_ASSETS, get_industrial_asset

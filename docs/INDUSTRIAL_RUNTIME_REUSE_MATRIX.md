@@ -1,0 +1,2 @@
+# Reuse matrix
+TrustAgent: SAFE_REUSE_WITH_RUNTIME_ADAPTER (exact runtime projection required). Threat/Risk/Drift: RESEARCH_RUNTIME_COUPLED (their input chain depends on frozen semantic/authorization outputs). Adaptation, Authority, Assurance, Planner, Decision, Agentic input, MockLLM, bounded selector, memory, feedback, governance, execution: RESEARCH_RUNTIME_COUPLED or BLOCKED pending a governed industrial context/transaction contract. No scientific equation is copied.

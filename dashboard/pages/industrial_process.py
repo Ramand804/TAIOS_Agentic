@@ -1,0 +1,25 @@
+def render_industrial_process(st, snapshot, presentation=False):
+    state = snapshot.process
+    st.title("Industrial Process")
+    st.caption("Simulated Manufacturing Cell — no physical plant connection")
+    left, right = st.columns(2)
+    with left:
+        st.subheader("Production controller")
+        st.write("Operating mode:", state["operating_mode"])
+        st.write("Production rate:", state["production_rate_units_per_hour"])
+        st.subheader("Mixer")
+        st.write("State:", state["machine_state"].get("MIXER"))
+        st.write("Speed (RPM):", state["mixer_speed_rpm"])
+        st.write("Temperature (°C):", state["mixer_temperature_celsius"])
+    with right:
+        st.subheader("Pump")
+        st.write("State:", state["pump_state"])
+        st.write("Flow (L/min):", state["pump_flow_rate_lpm"])
+        st.write("Pressure (bar):", state["pump_pressure_bar"])
+        st.subheader("Conveyor")
+        st.write("State:", state["conveyor_state"])
+        st.write("Speed (m/s):", state["conveyor_speed_mps"])
+    st.divider()
+    st.write("Maintenance state:", state["maintenance_mode"], " | Emergency state:", state["emergency_state"])
+    st.write("State version:", state["state_version"], " | Latest source update:", state["source_timestamp"])
+    st.caption("OPC UA status: Unknown · MQTT status: Unknown · Data quality: Unknown")

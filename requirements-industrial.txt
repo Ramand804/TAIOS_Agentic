@@ -1,0 +1,2 @@
+# Local software-defined industrial testbed only.
+asyncua==2.0

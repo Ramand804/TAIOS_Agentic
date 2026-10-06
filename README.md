@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TAIOS
 
 **TAIOS: An Agentic AI Operating System for Trust-Aware, Adaptive, and Explainable Autonomous Decision Intelligence in Industrial IoT**
@@ -63,3 +64,7 @@ Each experiment now saves deterministic `scenario_manifest.json` alongside its m
 Manifests drive generator boundaries and participate in experiment configuration. Generated events carry immutable `EventProvenance` with experiment/scenario/version identifiers, sequence, phase, transition type, and design-derived causal tags. The additional `total_events` field permits provenance validation against the canonical manifest even outside an orchestrator call. Causal tags describe experimental origin, not agent inference. Ground truth and expected actions remain separate labels.
 
 `EventManager` checks provenance before logging, including sequence-specific phase and transition metadata. Standalone events may omit provenance; deterministic experiment events may not. JSON event reconstruction accepts provenance dictionaries. Provenance and manifests participate in reproducibility; generator version is now `day1c-step4-v1`. Existing Step 3 snapshots and label semantics are preserved. One-event S2 runs now record `compromise_event: null` rather than pointing to a nonexistent event 2.
+=======
+# TAIOS_Agentic
+An Agentic AI Operating System for Trust-Aware, Adaptive, and Explainable Autonomous Decision Intelligence in Industrial IoT
+>>>>>>> origin/main
